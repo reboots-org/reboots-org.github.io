@@ -45,7 +45,7 @@
   <h1>Phlower National Rewards Server</h1>
   
   <div class="bounty-section">
-    <h2>Bounty for 03-05-2025</h2>
+    <h2 id="bounty-header">Bounty for 03-05-2025</h2>
     <p>Any one of Rohan's LETTER keys.</p>
     <p><strong>NOTE:</strong> Capturing the bounty entitles the winner to a week's worth of armistice.</p>
   </div>
@@ -54,6 +54,17 @@
     <h2>Rewards</h2>
     <p>Some special bounties offer a <strong>lifetime armistice</strong> to the winner.</p>
   </div>
+
+  <script>
+    // Get the current date and time
+    const currentDate = new Date();
+    
+    // Format the date as mm-dd-yyyy
+    const formattedDate = `${currentDate.getMonth() + 1}-${currentDate.getDate()}-${currentDate.getFullYear()}`;
+
+    // Update the bounty header with the current date
+    document.getElementById("bounty-header").textContent = `Bounty for ${formattedDate}`;
+  </script>
 </body>
 
 </html>
