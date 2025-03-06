@@ -4,10 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DwAbIt</title>
+    <style>
+      .video-page {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        height: 100vh;
+      }
+      .text-container {
+        text-align: left;
+        padding: 20px;
+        max-width: 300px;
+        margin-right: 20px;
+      }
+      .video-container {
+        display: flex;
+        justify-content: center;
+      }
+      #hidden-link {
+        font-size: 20px;
+        color: #ff6347;
+        text-decoration: underline;
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        transform: translateX(-50%);
+        cursor: pointer;
+        display: none;
+        animation: blink 2s infinite;
+      }
+
+      @keyframes blink {
+        0% { opacity: 1; }
+        50% { opacity: 0; }
+        100% { opacity: 1; }
+      }
+    </style>
   </head>
   <body>
     <div class="video-page">
-      <div style="text-align: left; padding: 20px;">
+      <div class="text-container">
         <p>He feels fantastic<br>
           Hey, hey, hey<br><br>
           They feel fantastic<br>
@@ -20,7 +56,7 @@
           Run, run, run, run, run, run 110000°52.6 Ufsia, 1111011°23.6 Emuk, run, run, run
         </p>
       </div>
-      <div>
+      <div class="video-container">
         <video width="600" controls autoplay>
           <source src="iff.mp4" type="video/mp4">
           Your browser does not support the video tag.
