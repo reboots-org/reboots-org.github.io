@@ -105,7 +105,7 @@
   <!-- Hidden overlay for the jump scare -->
   <div id="jump-scare-overlay">
     <!-- Replace with the URL to your dead lady PNG image -->
-    <img src="lady.jpg" alt="Haunting Image">
+    <img src="lady.png" alt="Haunting Image">
   </div>
   
   <!-- Audio element for the scream effect -->
@@ -133,7 +133,7 @@
       "CRITICAL: Unexpected behavior in system!"
     ];
 
-    // Function to spawn a single error message
+    // Function to spawn a single error message and play the error sound
     function spawnErrorMessage() {
       const randomMessage = messages[Math.floor(Math.random() * messages.length)];
       const div = document.createElement('div');
@@ -146,6 +146,9 @@
       const randomRotation = Math.random() * 360 - 180;
       div.style.transform = "rotate(" + randomRotation + "deg)";
       document.body.appendChild(div);
+      
+      // Play the Windows error sound for each error message
+      new Audio("erro.mp3").play();
     }
     
     // Function to spawn the remaining error messages at an accelerating rate
