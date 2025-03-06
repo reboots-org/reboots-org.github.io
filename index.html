@@ -30,9 +30,24 @@
       }
       /* Video Page Specific Styles */
       .video-container {
-        text-align: center;
-        margin-top: 50px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        height: 100vh;
       }
+
+      .text-container {
+        width: 30%;
+        font-family: Arial, sans-serif;
+        font-size: 1.2em;
+        color: #ffffff;
+        padding: 20px;
+        overflow-y: auto;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
       #hidden-link {
         font-size: 20px;
         color: #ff6347;
@@ -45,6 +60,7 @@
         display: none;
         animation: blink 2s infinite;
       }
+
       @keyframes blink {
         0% { opacity: 1; }
         50% { opacity: 0; }
@@ -55,10 +71,25 @@
   <body>
     <div class="video-page">
       <div class="video-container">
-        <video width="600" controls autoplay>
-          <source src="iff.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
+        <div class="text-container">
+          <p>He feels fantastic<br>
+            Hey, hey, hey<br><br>
+            They feel fantastic<br>
+            Hey, hey, hey<br><br>
+            We are fantastic<br>
+            Hey, hey, hey<br><br>
+            He feels fantastic<br><br>
+            We feel fantastic<br>
+            Hey, hey, hey<br><br>
+            Run, run, run, run, run, run 110000°52.6 Ufsia, 1111011°23.6 Emuk, run, run, run
+          </p>
+        </div>
+        <div class="video-container">
+          <video width="600" controls autoplay>
+            <source src="iff.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
       </div>
 
       <!-- Hidden Link to Redirect -->
