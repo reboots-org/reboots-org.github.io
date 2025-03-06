@@ -12,6 +12,7 @@
       padding: 20px;
       position: relative;
       margin: 0;
+      overflow: hidden; /* Prevent scrollbars from error messages */
     }
     h1 {
       color: #ff0000;
@@ -41,7 +42,7 @@
     a#trigger-link:hover {
       background: #444;
     }
-    /* Jump scare overlay styling (no fade-in) */
+    /* Jump scare overlay styling (no fade in transition) */
     #jump-scare-overlay {
       position: fixed;
       top: 0;
@@ -67,7 +68,7 @@
       filter: grayscale(1) contrast(1.2) brightness(0.8);
       transform: scale(0.1);
     }
-    /* Jump and shake animation */
+    /* Jump and shake animation for the image */
     @keyframes jumpAndShake {
       0% { transform: scale(0.1) translate(0,0); }
       20% { transform: scale(1.5) translate(0,0); }
@@ -83,6 +84,16 @@
     /* Trigger animation on active overlay */
     #jump-scare-overlay.active img {
       animation: jumpAndShake 0.7s ease-out;
+    }
+    /* Styling for error messages */
+    .error-message {
+      position: fixed;
+      color: red;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1.5em;
+      z-index: 5000;
+      pointer-events: none;
+      white-space: nowrap;
     }
   </style>
 </head>
@@ -108,11 +119,51 @@
     const triggerLink = document.getElementById("trigger-link");
     const overlay = document.getElementById("jump-scare-overlay");
     const screamAudio = document.getElementById("scream-audio");
+
+    // Function to spawn 100 error messages in random positions
+    function spawnErrorMessages() {
+      const messages = [
+        "ERROR: System failure!",
+        "WARNING: Data corruption detected!",
+        "FATAL ERROR: Unidentified anomaly!",
+        "ERROR: Unable to recover memory!",
+        "ALERT: The past is not erased!",
+        "CRITICAL: Reality bending in progress!",
+        "WARNING: DO NOT LOOK BEHIND YOU!",
+        "ERROR: This broadcast is not meant for you!",
+        "WARNING: Fragmented signals detected!",
+        "CRITICAL: Unexpected behavior in system!"
+      ];
+      
+      for (let i = 0; i < 100; i++) {
+        const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+        const div = document.createElement('div');
+        div.classList.add('error-message');
+        div.textContent = randomMessage;
+        // Randomize the position (using viewport units)
+        div.style.top = Math.random() * 90 + "vh";
+        div.style.left = Math.random() * 90 + "vw";
+        // Random rotation for a scrambled, tilted, and upside down effect
+        const randomRotation = Math.random() * 360 - 180;
+        div.style.transform = "rotate(" + randomRotation + "deg)";
+        document.body.appendChild(div);
+      }
+    }
+    
+    // Function to remove all error messages
+    function removeErrorMessages() {
+      const errors = document.querySelectorAll('.error-message');
+      errors.forEach(error => error.remove());
+    }
     
     triggerLink.addEventListener("click", function(event) {
       event.preventDefault();
-      // Brief delay (2 seconds) for suspense
+      // Spawn 100 error messages immediately
+      spawnErrorMessages();
+      
+      // After 2 seconds, remove errors and trigger the jump scare
       setTimeout(function() {
+        removeErrorMessages();
         overlay.classList.add("active");
         screamAudio.play();
         // Remove the overlay after 3 seconds
