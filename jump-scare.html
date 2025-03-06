@@ -68,18 +68,21 @@
       filter: grayscale(1) contrast(1.2) brightness(0.8);
       transform: scale(0.1);
     }
-    /* Jump and shake animation for the image */
+    /* Jump and shake animation with extra zoom "up in your face" */
     @keyframes jumpAndShake {
-      0% { transform: scale(0.1) translate(0,0); }
-      20% { transform: scale(1.5) translate(0,0); }
-      25% { transform: scale(1.5) translate(-10px, 10px); }
-      30% { transform: scale(1.5) translate(10px, -10px); }
-      35% { transform: scale(1.5) translate(-10px, -10px); }
-      40% { transform: scale(1.5) translate(10px, 10px); }
-      45% { transform: scale(1.5) translate(-5px, 5px); }
-      50% { transform: scale(1.5) translate(5px, -5px); }
-      55% { transform: scale(1.5) translate(0,0); }
-      100% { transform: scale(1.5) translate(0,0); }
+      0% { transform: scale(0.1) translate(0, 0); }
+      20% { transform: scale(1.5) translate(0, 0); }
+      25% { transform: scale(2.0) translate(-30px, 30px); }
+      30% { transform: scale(2.0) translate(30px, -30px); }
+      35% { transform: scale(2.0) translate(-30px, -30px); }
+      40% { transform: scale(2.0) translate(30px, 30px); }
+      45% { transform: scale(2.5) translate(-20px, 20px); }
+      50% { transform: scale(3.0) translate(0, 0); }
+      55% { transform: scale(3.0) translate(10px, -10px); }
+      60% { transform: scale(3.0) translate(-10px, 10px); }
+      65% { transform: scale(3.0) translate(5px, -5px); }
+      70% { transform: scale(3.0) translate(-5px, 5px); }
+      100% { transform: scale(3.0) translate(0, 0); }
     }
     /* Trigger animation on active overlay */
     #jump-scare-overlay.active img {
@@ -104,7 +107,7 @@
   
   <!-- Hidden overlay for the jump scare -->
   <div id="jump-scare-overlay">
-    <!-- Replace with the URL to your dead lady PNG image -->
+    <!-- Replace with the URL to your dead lady image -->
     <img src="lady.jpg" alt="Haunting Image">
   </div>
   
