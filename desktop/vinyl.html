@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Vinyl Player - Death Grips</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #121212;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        
+        .player-container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            perspective: 1200px;
+        }
+        
+        .turntable {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+        
+        .player-base {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #222;
+            transform: translateZ(-10px);
+            border-radius: 10px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            border: 2px solid #333;
+        }
+        
+        .platter {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background-color: #111;
+            border-radius: 50%;
+            top: 50px;
+            left: 150px;
+            transform: translateZ(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+        
+        .record {
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            background: 
+                radial-gradient(circle at center, 
+                    #000 0%, 
+                    #000 38%, 
+                    #333 38.5%, 
+                    #333 39.5%, 
+                    #000 40%, 
+                    #000 42%, 
+                    #333 42.5%, 
+                    #333 43.5%, 
+                    #000 44%, 
+                    #000 46%, 
+                    #333 46.5%, 
+                    #333 47.5%, 
+                    #000 48%, 
+                    #000 50%, 
+                    #333 50.5%, 
+                    #333 51.5%, 
+                    #000 52%, 
+                    #000 54%, 
+                    #333 54.5%, 
+                    #333 55.5%, 
+                    #000 56%,
+                    #000 100%);
+            border-radius: 50%;
+            top: 10px;
+            left: 10px;
+            animation: rotate 5s linear infinite paused;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+        
+        .record.playing {
+            animation-play-state: running;
+        }
+        
+        .record-label {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            top: 90px;
+            left: 90px;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .record-center {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #888;
+            border-radius: 50%;
+            top: 130px;
+            left: 130px;
+            transform: translateZ(7px);
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.8);
+        }
+        
+        .tonearm-base {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-color: #444;
+            border-radius: 50%;
+            top: 70px;
+            right: 100px;
+            transform: translateZ(15px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .tonearm {
+            position: absolute;
+            width: 180px;
+            height: 10px;
+            background-color: #555;
+            top: 95px;
+            right: 100px;
+            transform-origin: right center;
+            transform: rotate(-30deg) translateZ(17px);
+            transition: transform 1s ease;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tonearm.playing {
+            transform: rotate(15deg) translateZ(17px);
+        }
+        
+        .cartridge {
+            position: absolute;
+            width: 20px;
+            height: 15px;
+            background-color: #333;
+            left: 0;
+            top: -5px;
+            transform: translateZ(1px);
+        }
+        
+        .controls {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+        }
+        
+        .control-button {
+            width: 50px;
+            height: 50px;
+            background-color: #333;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: all 0.2s ease;
+        }
+        
+        .control-button:hover {
+            background-color: #444;
+            transform: translateY(-2px);
+        }
+        
+        .control-button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .play-button {
+            background-color: #00a651;
+        }
+        
+        .album-display {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            top: 50px;
+            left: -250px;
+            perspective: 800px;
+        }
+        
+        .album-cover {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            transform: rotateY(20deg);
+            transition: transform 0.5s ease;
+        }
+        
+        .album-cover:hover {
+            transform: rotateY(0deg);
+        }
+        
+        .album-info {
+            position: absolute;
+            bottom: 50px;
+            left: -250px;
+            width: 200px;
+            text-align: center;
+        }
+        
+        .album-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .album-artist {
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        .volume-control {
+            position: absolute;
+            bottom: 50px;
+            right: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .volume-slider {
+            appearance: none;
+            width: 100px;
+            height: 5px;
+            background: #555;
+            outline: none;
+            transform: rotate(-90deg);
+            margin: 20px 0;
+        }
+        
+        .volume-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .volume-label {
+            font-size: 12px;
+            color: #aaa;
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="player-container">
+        <div class="turntable">
+            <div class="player-base"></div>
+            <div class="platter">
+                <div class="record" id="record">
+                    <div class="record-label" style="background-image: url('https://i.discogs.com/WMrtONp2OVLav9NCqkz-lx0bmtycv7cVwIqSbL0aevo/rs:fit/g:sm/q:90/h:600/w:598/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI2OTcw/MTg1LTE2OTcyNjAx/NzItMTQyNi5qcGVn.jpeg');"></div>
+                </div>
+                <div class="record-center"></div>
+            </div>
+            <div class="tonearm-base"></div>
+            <div class="tonearm" id="tonearm">
+                <div class="cartridge"></div>
+            </div>
+            <div class="controls">
+                <button class="control-button play-button" id="playButton">▶</button>
+                <button class="control-button" id="stopButton">■</button>
+            </div>
+            <div class="volume-control">
+                <span class="volume-label">Volume</span>
+                <input type="range" min="0" max="100" value="80" class="volume-slider" id="volumeSlider">
+            </div>
+        </div>
+        <div class="album-display">
+            <div class="album-cover" style="background-image: url('https://i.discogs.com/WMrtONp2OVLav9NCqkz-lx0bmtycv7cVwIqSbL0aevo/rs:fit/g:sm/q:90/h:600/w:598/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI2OTcw/MTg1LTE2OTcyNjAx/NzItMTQyNi5qcGVn.jpeg');"></div>
+        </div>
+        <div class="album-info">
+            <div class="album-title">Beware</div>
+            <div class="album-artist">Death Grips</div>
+        </div>
+    </div>
+
+    <audio id="audioPlayer" src="beware.mp3" preload="auto"></audio>
+
+    <script>
+        const record = document.getElementById('record');
+        const tonearm = document.getElementById('tonearm');
+        const playButton = document.getElementById('playButton');
+        const stopButton = document.getElementById('stopButton');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const audioPlayer = document.getElementById('audioPlayer');
+        
+        let isPlaying = false;
+        
+        // Set initial volume
+        audioPlayer.volume = volumeSlider.value / 100;
+        
+        // Play/Pause functionality
+        playButton.addEventListener('click', function() {
+            if (isPlaying) {
+                pauseRecord();
+            } else {
+                playRecord();
+            }
+        });
+        
+        // Stop functionality
+        stopButton.addEventListener('click', function() {
+            stopRecord();
+        });
+        
+        // Volume control
+        volumeSlider.addEventListener('input', function() {
+            audioPlayer.volume = this.value / 100;
+        });
+        
+        function playRecord() {
+            record.classList.add('playing');
+            tonearm.classList.add('playing');
+            playButton.innerHTML = '❚❚';
+            audioPlayer.play();
+            isPlaying = true;
+        }
+        
+        function pauseRecord() {
+            record.classList.remove('playing');
+            tonearm.classList.remove('playing');
+            playButton.innerHTML = '▶';
+            audioPlayer.pause();
+            isPlaying = false;
+        }
+        
+        function stopRecord() {
+            pauseRecord();
+            audioPlayer.currentTime = 0;
+        }
+        
+        // Make the turntable interactive with mouse movements
+        const turntable = document.querySelector('.turntable');
+        const playerContainer = document.querySelector('.player-container');
+        
+        let isDragging = false;
+        let startX, startY, startRotateX = 0, startRotateY = 0;
+        let currentRotateX = 20, currentRotateY = 0;
+        
+        playerContainer.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            startRotateX = currentRotateX;
+            startRotateY = currentRotateY;
+            playerContainer.style.cursor = 'grabbing';
+        });
+        
+        document.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+            
+            const deltaX = e.clientX - startX;
+            const deltaY = e.clientY - startY;
+            
+            currentRotateY = startRotateY + deltaX * 0.2;
+            currentRotateX = startRotateX - deltaY * 0.2;
+            
+            // Limit the rotation angles
+            currentRotateX = Math.max(-30, Math.min(40, currentRotateX));
+            currentRotateY = Math.max(-30, Math.min(30, currentRotateY));
+            
+            turntable.style.transform = `rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
+        });
+        
+        document.addEventListener('mouseup', function() {
+            isDragging = false;
+            playerContainer.style.cursor = 'grab';
+        });
+        
+        // Initialize the 3D perspective
+        turntable.style.transform = `rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
+        playerContainer.style.cursor = 'grab';
+        
+        // Handle audio ending
+        audioPlayer.addEventListener('ended', function() {
+            stopRecord();
+        });
+    </script>
+</body>
+</html>
