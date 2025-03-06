@@ -83,12 +83,6 @@
             box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
         }
         
-        .start-button img {
-            width: 16px;
-            height: 16px;
-            margin-right: 3px;
-        }
-        
         .start-text {
             color: white;
             font-weight: bold;
@@ -107,13 +101,6 @@
             align-items: center;
         }
         
-        .quick-launch-icon {
-            width: 22px;
-            height: 22px;
-            margin-right: 5px;
-            cursor: pointer;
-        }
-        
         .taskbar-spacer {
             flex: 1;
         }
@@ -125,12 +112,6 @@
             height: 22px;
             padding: 0 5px;
             border-radius: 2px;
-        }
-        
-        .system-tray img {
-            width: 16px;
-            height: 16px;
-            margin-left: 5px;
         }
         
         .time {
@@ -163,12 +144,6 @@
             font-size: 11px;
             box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.2);
         }
-
-        .taskbar-app img {
-            width: 16px;
-            height: 16px;
-            margin-right: 5px;
-        }
         
         /* Emoji styles */
         .emoji {
@@ -190,6 +165,9 @@
             font-size: 22px;
             margin-right: 5px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .app-emoji {
@@ -200,6 +178,217 @@
         .tray-emoji {
             font-size: 16px;
             margin-left: 5px;
+        }
+
+        /* Folder Window Styles */
+        .folder-window {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 400px;
+            background-color: #ECE9D8;
+            border: 1px solid #0055EA;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            border-radius: 3px 3px 0 0;
+            display: none;
+        }
+
+        .folder-titlebar {
+            height: 28px;
+            background: linear-gradient(to right, #0058E6, #2686E0, #7EB6E7);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 13px;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .folder-title {
+            display: flex;
+            align-items: center;
+        }
+
+        .folder-title-emoji {
+            margin-right: 6px;
+            font-size: 16px;
+        }
+
+        .folder-controls {
+            display: flex;
+        }
+
+        .folder-button {
+            width: 21px;
+            height: 21px;
+            margin-left: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .folder-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .folder-close-button {
+            background-color: #FF4943;
+            color: white;
+            font-weight: bold;
+        }
+
+        .folder-toolbar {
+            height: 36px;
+            background-color: #EBE8D8;
+            border-bottom: 1px solid #D8D2BD;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+        }
+
+        .folder-toolbar-section {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+
+        .folder-toolbar-button {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            padding: 4px 8px;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .folder-toolbar-button:hover {
+            border: 1px solid #B1AEA0;
+            background-color: #F7F5ED;
+        }
+
+        .folder-toolbar-emoji {
+            margin-right: 3px;
+            font-size: 14px;
+        }
+
+        .folder-addressbar {
+            height: 24px;
+            background-color: white;
+            border: 1px solid #7F9DB9;
+            margin: 5px 10px;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+        }
+
+        .folder-addressbar-label {
+            font-size: 12px;
+            margin-right: 5px;
+        }
+
+        .folder-addressbar-path {
+            font-size: 12px;
+            flex: 1;
+        }
+
+        .folder-main {
+            flex: 1;
+            display: flex;
+            border-top: 1px solid #CCC;
+        }
+
+        .folder-sidebar {
+            width: 180px;
+            background-color: #ECE9D8;
+            border-right: 1px solid #D8D2BD;
+            padding: 10px 0;
+        }
+
+        .folder-sidebar-section {
+            margin-bottom: 10px;
+        }
+
+        .folder-sidebar-header {
+            font-size: 12px;
+            font-weight: bold;
+            color: #003399;
+            padding: 5px 10px;
+            background-color: #D8D2BD;
+            margin-bottom: 5px;
+        }
+
+        .folder-sidebar-item {
+            display: flex;
+            align-items: center;
+            padding: 3px 10px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .folder-sidebar-item:hover {
+            background-color: #D8D2BD;
+        }
+
+        .folder-sidebar-emoji {
+            margin-right: 5px;
+            font-size: 16px;
+        }
+
+        .folder-content {
+            flex: 1;
+            background-color: white;
+            padding: 10px;
+            overflow: auto;
+        }
+
+        .folder-file {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80px;
+            margin: 5px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .folder-file:hover {
+            background-color: #E8F1FC;
+        }
+
+        .folder-file-emoji {
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+
+        .folder-file-name {
+            font-size: 11px;
+            text-align: center;
+            word-break: break-word;
+        }
+
+        .folder-statusbar {
+            height: 22px;
+            background-color: #ECE9D8;
+            border-top: 1px solid #D8D2BD;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            font-size: 11px;
+        }
+
+        /* Make folder draggable */
+        .folder-window.dragging {
+            opacity: 0.8;
         }
     </style>
 </head>
@@ -220,6 +409,115 @@
                 </a>
             </div>
         </div>
+
+        <!-- Folder Window -->
+        <div class="folder-window" id="folderWindow">
+            <div class="folder-titlebar" id="folderTitlebar">
+                <div class="folder-title">
+                    <div class="folder-title-emoji">📁</div>
+                    <span>My Documents</span>
+                </div>
+                <div class="folder-controls">
+                    <div class="folder-button">_</div>
+                    <div class="folder-button">□</div>
+                    <div class="folder-button folder-close-button" onclick="closeFolder()">✕</div>
+                </div>
+            </div>
+            <div class="folder-toolbar">
+                <div class="folder-toolbar-section">
+                    <div class="folder-toolbar-button">
+                        <div class="folder-toolbar-emoji">◀</div>
+                        <span>Back</span>
+                    </div>
+                    <div class="folder-toolbar-button">
+                        <div class="folder-toolbar-emoji">▶</div>
+                        <span>Forward</span>
+                    </div>
+                </div>
+                <div class="folder-toolbar-section">
+                    <div class="folder-toolbar-button">
+                        <div class="folder-toolbar-emoji">🔍</div>
+                        <span>Search</span>
+                    </div>
+                    <div class="folder-toolbar-button">
+                        <div class="folder-toolbar-emoji">📁</div>
+                        <span>Folders</span>
+                    </div>
+                </div>
+            </div>
+            <div class="folder-addressbar">
+                <div class="folder-addressbar-label">Address:</div>
+                <div class="folder-addressbar-path">C:\Documents and Settings\Administrator\My Documents</div>
+            </div>
+            <div class="folder-main">
+                <div class="folder-sidebar">
+                    <div class="folder-sidebar-section">
+                        <div class="folder-sidebar-header">System Tasks</div>
+                        <div class="folder-sidebar-item">
+                            <div class="folder-sidebar-emoji">💻</div>
+                            <span>My Computer</span>
+                        </div>
+                        <div class="folder-sidebar-item">
+                            <div class="folder-sidebar-emoji">📂</div>
+                            <span>My Documents</span>
+                        </div>
+                        <div class="folder-sidebar-item">
+                            <div class="folder-sidebar-emoji">🖼️</div>
+                            <span>My Pictures</span>
+                        </div>
+                        <div class="folder-sidebar-item">
+                            <div class="folder-sidebar-emoji">🎵</div>
+                            <span>My Music</span>
+                        </div>
+                    </div>
+                    <div class="folder-sidebar-section">
+                        <div class="folder-sidebar-header">Other Places</div>
+                        <div class="folder-sidebar-item">
+                            <div class="folder-sidebar-emoji">🏠</div>
+                            <span>Desktop</span>
+                        </div>
+                        <div class="folder-sidebar-item">
+                            <div class="folder-sidebar-emoji">🌐</div>
+                            <span>Shared Documents</span>
+                        </div>
+                        <div class="folder-sidebar-item">
+                            <div class="folder-sidebar-emoji">🗑️</div>
+                            <span>Recycle Bin</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="folder-content">
+                    <!-- Add your information content here -->
+                    <div class="folder-file">
+                        <div class="folder-file-emoji">📄</div>
+                        <div class="folder-file-name">About Me.txt</div>
+                    </div>
+                    <div class="folder-file">
+                        <div class="folder-file-emoji">📄</div>
+                        <div class="folder-file-name">Projects.txt</div>
+                    </div>
+                    <div class="folder-file">
+                        <div class="folder-file-emoji">📊</div>
+                        <div class="folder-file-name">Resume.pdf</div>
+                    </div>
+                    <div class="folder-file">
+                        <div class="folder-file-emoji">🖼️</div>
+                        <div class="folder-file-name">Portfolio.jpg</div>
+                    </div>
+                    <div class="folder-file">
+                        <div class="folder-file-emoji">📁</div>
+                        <div class="folder-file-name">Contact Info</div>
+                    </div>
+                    <div class="folder-file">
+                        <div class="folder-file-emoji">📁</div>
+                        <div class="folder-file-name">Social Media</div>
+                    </div>
+                </div>
+            </div>
+            <div class="folder-statusbar">
+                6 items
+            </div>
+        </div>
     </div>
     
     <div class="taskbar">
@@ -232,7 +530,7 @@
         
         <div class="quick-launch">
             <div class="quick-launch-icon">🌐</div>
-            <div class="quick-launch-icon">📁</div>
+            <div class="quick-launch-icon" id="folderButton">📁</div>
         </div>
         
         <div class="taskbar-divider"></div>
@@ -308,6 +606,107 @@
                     if (link) {
                         window.open(link.href, link.target || '_self');
                     }
+                }
+            });
+        });
+
+        // Folder window functionality
+        const folderButton = document.getElementById('folderButton');
+        const folderWindow = document.getElementById('folderWindow');
+        const folderTitlebar = document.getElementById('folderTitlebar');
+        
+        // Open folder on click
+        folderButton.addEventListener('click', function() {
+            folderWindow.style.display = 'flex';
+            
+            // Add folder app to taskbar if it doesn't exist
+            const existingFolderApp = document.querySelector('.taskbar-app.folder-app');
+            if (!existingFolderApp) {
+                const folderApp = document.createElement('div');
+                folderApp.className = 'taskbar-app folder-app';
+                folderApp.innerHTML = '<div class="app-emoji">📁</div><span>My Documents</span>';
+                document.querySelector('.taskbar-apps').appendChild(folderApp);
+                
+                // Click on taskbar app to focus window
+                folderApp.addEventListener('click', function() {
+                    if (folderWindow.style.display === 'none') {
+                        folderWindow.style.display = 'flex';
+                    } else {
+                        folderWindow.style.display = 'none';
+                    }
+                });
+            }
+        });
+        
+        // Close folder
+        function closeFolder() {
+            folderWindow.style.display = 'none';
+            
+            // Remove folder app from taskbar
+            const folderApp = document.querySelector('.taskbar-app.folder-app');
+            if (folderApp) {
+                folderApp.remove();
+            }
+        }
+        
+        // Make folder window draggable
+        let isDragging = false;
+        let offsetX, offsetY;
+        
+        folderTitlebar.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            folderWindow.classList.add('dragging');
+            
+            // Get the current position of the folder window
+            const rect = folderWindow.getBoundingClientRect();
+            
+            // Calculate the offset between the mouse position and the top-left corner of the window
+            offsetX = e.clientX - rect.left;
+            offsetY = e.clientY - rect.top;
+        });
+        
+        document.addEventListener('mousemove', function(e) {
+            if (isDragging) {
+                // Set the position of the folder window based on the mouse position and offset
+                folderWindow.style.left = (e.clientX - offsetX) + 'px';
+                folderWindow.style.top = (e.clientY - offsetY) + 'px';
+                folderWindow.style.transform = 'none'; // Remove the translate transform
+            }
+        });
+        
+        document.addEventListener('mouseup', function() {
+            isDragging = false;
+            folderWindow.classList.remove('dragging');
+        });
+
+        // Add click handlers for folder content
+        const folderFiles = document.querySelectorAll('.folder-file');
+        folderFiles.forEach(file => {
+            file.addEventListener('click', function() {
+                // Remove selected class from all files
+                folderFiles.forEach(f => f.style.backgroundColor = '');
+                // Add selected class to clicked file
+                this.style.backgroundColor = '#CCE8FF';
+            });
+            
+            // Double-click handling for folder content
+            let fileClickCount = 0;
+            let fileClickTimer = null;
+            
+            file.addEventListener('click', function() {
+                fileClickCount++;
+                
+                if (fileClickCount === 1) {
+                    fileClickTimer = setTimeout(function() {
+                        fileClickCount = 0;
+                    }, 300);
+                } else if (fileClickCount === 2) {
+                    clearTimeout(fileClickTimer);
+                    fileClickCount = 0;
+                    
+                    // Show alert with file name
+                    const fileName = this.querySelector('.folder-file-name').textContent;
+                    alert(`Opening ${fileName}`);
                 }
             });
         });
