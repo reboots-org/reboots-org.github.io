@@ -57,16 +57,17 @@
             margin-bottom: 10px;
         }
         
-        .windows-logo img {
-            width: 50px;
-            height: 45px;
+        .logo-emoji {
+            font-size: 42px;
             margin-right: 10px;
+            filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3));
         }
         
         .windows-text {
             color: white;
             font-size: 28px;
             font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
         
         .xp-text {
@@ -74,12 +75,14 @@
             font-size: 24px;
             align-self: flex-end;
             margin-top: -5px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
         
         .login-instruction {
             color: white;
             font-size: 18px;
             margin-top: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
         
         .vertical-divider {
@@ -117,16 +120,23 @@
             background-color: rgba(255, 255, 255, 0.1);
         }
         
-        .user-profile img {
+        .user-emoji {
             width: 48px;
             height: 48px;
+            font-size: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #a22;
             border: 2px solid white;
+            border-radius: 3px;
             margin-right: 10px;
         }
         
         .user-name {
             color: white;
             font-size: 16px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
         
         .bottom-bar {
@@ -146,18 +156,22 @@
             cursor: pointer;
         }
         
-        .power-option img {
+        .power-emoji {
             width: 20px;
             height: 20px;
-            margin-right: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
             background-color: #FF6600;
             border-radius: 50%;
-            padding: 2px;
+            margin-right: 5px;
         }
         
         .help-text {
             color: white;
             font-size: 12px;
+            text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5);
         }
         
         .mouse-cursor {
@@ -171,6 +185,45 @@
             transform: translate(-50%, -50%);
             display: none;
         }
+
+        @media (max-width: 800px) {
+            .windows-branding {
+                left: 100px;
+            }
+            
+            .user-profiles {
+                right: 100px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .login-area {
+                flex-direction: column;
+            }
+            
+            .windows-branding {
+                position: relative;
+                left: 0;
+                top: 50px;
+                transform: none;
+                margin-bottom: 50px;
+            }
+            
+            .vertical-divider {
+                display: none;
+            }
+            
+            .user-profiles {
+                position: relative;
+                right: 0;
+                top: 0;
+                transform: none;
+            }
+            
+            .help-text {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -179,10 +232,10 @@
         <div class="login-area">
             <div class="windows-branding">
                 <div class="windows-logo">
-                    <img src="/api/placeholder/50/45" alt="Windows Logo">
-                    <div class="windows-text">Windows</div>
+                    <div class="logo-emoji">🪟</div>
+                    <div class="windows-text">Panes</div>
                 </div>
-                <div class="xp-text">XP</div>
+                <div class="xp-text">GP</div>
                 <div class="login-instruction">To begin, click your user name</div>
             </div>
             
@@ -190,7 +243,7 @@
             
             <div class="user-profiles">
                 <button class="user-profile" onclick="login()">
-                    <img src="/api/placeholder/48/48" alt="User">
+                    <div class="user-emoji">👨‍💼</div>
                     <div class="user-name">Administrator</div>
                 </button>
             </div>
@@ -200,7 +253,7 @@
         
         <div class="bottom-bar">
             <div class="power-option">
-                <img src="/api/placeholder/20/20" alt="Power">
+                <div class="power-emoji">⏻</div>
                 <span>Turn off computer</span>
             </div>
             
@@ -214,7 +267,7 @@
     <script>
         function login() {
             // Redirect to desktop or main page
-            window.location.href = "desktop.html";
+            window.location.href = "desktop";
         }
         
         // Custom cursor animation for demo purposes
