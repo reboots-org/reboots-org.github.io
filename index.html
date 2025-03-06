@@ -1,67 +1,276 @@
-<!doctype HTML>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DwAbIt</title>
+    <title>Windows XP Login</title>
     <style>
-      .video-page {
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        height: 100vh;
-      }
-      .text-container {
-        text-align: left;
-        padding: 20px;
-        max-width: 300px;
-        margin-right: 20px;
-      }
-      .video-container {
-        display: flex;
-        justify-content: center;
-      }
-      /* Removed the blinking text link styles */
-      #image-link {
-        display: block;
-        text-align: center;
-        margin-top: 20px;
-      }
-      #image-link img {
-        width: 200px;
-        cursor: pointer;
-      }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tahoma', sans-serif;
+        }
+        
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #000;
+            overflow: hidden;
+        }
+        
+        .login-screen {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .top-bar {
+            height: 70px;
+            background-color: #0c377a;
+        }
+        
+        .login-area {
+            flex: 1;
+            background: linear-gradient(to right, #235abd, #7aa5e2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .windows-branding {
+            position: absolute;
+            left: 270px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .windows-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .windows-logo img {
+            width: 50px;
+            height: 45px;
+            margin-right: 10px;
+        }
+        
+        .windows-text {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .xp-text {
+            color: white;
+            font-size: 24px;
+            align-self: flex-end;
+            margin-top: -5px;
+        }
+        
+        .login-instruction {
+            color: white;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        
+        .vertical-divider {
+            position: absolute;
+            height: 70%;
+            width: 1px;
+            background-color: rgba(255, 255, 255, 0.3);
+            top: 15%;
+            left: 50%;
+        }
+        
+        .user-profiles {
+            position: absolute;
+            right: 270px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+        }
+        
+        .user-profile:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .user-profile img {
+            width: 48px;
+            height: 48px;
+            border: 2px solid white;
+            margin-right: 10px;
+        }
+        
+        .user-name {
+            color: white;
+            font-size: 16px;
+        }
+        
+        .bottom-bar {
+            height: 40px;
+            background-color: #0c377a;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+        
+        .power-option {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .power-option img {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            background-color: #FF6600;
+            border-radius: 50%;
+            padding: 2px;
+        }
+        
+        .help-text {
+            color: white;
+            font-size: 12px;
+        }
+        
+        .mouse-cursor {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABUSURBVDhPY2AYdIAFiP8D8X8s+D8SJkoNI5r4AIoLMTEWcxnwaRYB4v8E8H8kMbwGEmMYPnOJNpAYw0YNHDWQKANpBvAaSOxwBBk4KAELFg0DMKAAAHC8GyHklFc3AAAAAElFTkSuQmCC');
+            background-repeat: no-repeat;
+            pointer-events: none;
+            z-index: 1000;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
     </style>
-  </head>
-  <body>
-    <div class="video-page">
-      <div class="text-container">
-        <p>He feels fantastic<br>
-          Hey, hey, hey<br><br>
-          They feel fantastic<br>
-          Hey, hey, hey<br><br>
-          We are fantastic<br>
-          Hey, hey, hey<br><br>
-          He feels fantastic<br><br>
-          We feel fantastic<br>
-          Hey, hey, hey<br><br>
-          Run, run, run, run, run, run 110000°52.6 Ufsia, 1111011°23.6 Emuk, run, run, run
-        </p>
-      </div>
-      <div class="video-container">
-        <video width="600" controls autoplay>
-          <source src="https://dinkybeat.github.io/media/vid/iff.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
+</head>
+<body>
+    <div class="login-screen">
+        <div class="top-bar"></div>
+        <div class="login-area">
+            <div class="windows-branding">
+                <div class="windows-logo">
+                    <img src="/api/placeholder/50/45" alt="Windows Logo">
+                    <div class="windows-text">Windows</div>
+                </div>
+                <div class="xp-text">XP</div>
+                <div class="login-instruction">To begin, click your user name</div>
+            </div>
+            
+            <div class="vertical-divider"></div>
+            
+            <div class="user-profiles">
+                <button class="user-profile" onclick="login()">
+                    <img src="/api/placeholder/48/48" alt="User">
+                    <div class="user-name">Administrator</div>
+                </button>
+            </div>
+            
+            <div class="mouse-cursor" id="cursor"></div>
+        </div>
+        
+        <div class="bottom-bar">
+            <div class="power-option">
+                <img src="/api/placeholder/20/20" alt="Power">
+                <span>Turn off computer</span>
+            </div>
+            
+            <div class="help-text">
+                After you log on, you can add or change accounts.<br>
+                Just go to Control Panel and click User Accounts.
+            </div>
+        </div>
     </div>
-
-    <!-- Link with image at the bottom of the page -->
-    <div id="image-link">
-      <a href="https://dinkybeat.github.io/desktop">
-        <img src="https://dinkybeat.github.io/media/img/HAVEUSEENTHEM_.png" alt="DYK?"">
-      </a>
-    </div>
-
-  </body>
+    
+    <script>
+        function login() {
+            // Redirect to desktop or main page
+            window.location.href = "desktop.html";
+        }
+        
+        // Custom cursor animation for demo purposes
+        document.addEventListener('DOMContentLoaded', function() {
+            const cursor = document.getElementById('cursor');
+            const userProfile = document.querySelector('.user-profile');
+            
+            // Show cursor and animate it to click the user profile after a delay
+            setTimeout(function() {
+                cursor.style.display = 'block';
+                
+                // Get position of user profile
+                const rect = userProfile.getBoundingClientRect();
+                const targetX = rect.left + rect.width / 2;
+                const targetY = rect.top + rect.height / 2;
+                
+                // Start cursor from off-screen
+                cursor.style.left = (window.innerWidth - 100) + 'px';
+                cursor.style.top = (window.innerHeight - 100) + 'px';
+                
+                // Animate cursor movement
+                const startX = parseInt(cursor.style.left);
+                const startY = parseInt(cursor.style.top);
+                const diffX = targetX - startX;
+                const diffY = targetY - startY;
+                
+                const animationDuration = 2000; // 2 seconds
+                const startTime = Date.now();
+                
+                function animateCursor() {
+                    const elapsedTime = Date.now() - startTime;
+                    const progress = Math.min(elapsedTime / animationDuration, 1);
+                    
+                    const easeProgress = 1 - Math.pow(1 - progress, 3); // Cubic ease out
+                    
+                    const currentX = startX + diffX * easeProgress;
+                    const currentY = startY + diffY * easeProgress;
+                    
+                    cursor.style.left = currentX + 'px';
+                    cursor.style.top = currentY + 'px';
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animateCursor);
+                    } else {
+                        // Click effect
+                        userProfile.classList.add('active');
+                        setTimeout(function() {
+                            // Navigate to desktop
+                            login();
+                        }, 500);
+                    }
+                }
+                
+                requestAnimationFrame(animateCursor);
+            }, 1500);
+        });
+    </script>
+</body>
 </html>
