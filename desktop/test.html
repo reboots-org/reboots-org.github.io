@@ -194,8 +194,8 @@
             display: flex;
             flex-direction: column;
             z-index: 1000;
-            display: none;
             border-radius: 3px 3px 0 0;
+            display: none;
         }
 
         .folder-titlebar {
@@ -487,7 +487,7 @@
                     </div>
                 </div>
                 <div class="folder-content">
-                    <!-- Text files that open in Notepad -->
+                    <!-- Text files with data attributes for notepad content -->
                     <div class="folder-file" data-filename="About Me.txt" data-content="Hello! My name is Admin and this is my Windows XP computer.%0A%0AI am passionate about web development and retro computing.%0A%0AI enjoy creating nostalgic user interfaces that bring back the Windows XP era.%0A%0AThanks for checking out my desktop!">
                         <div class="folder-file-emoji">📄</div>
                         <div class="folder-file-name">About Me.txt</div>
@@ -496,12 +496,12 @@
                         <div class="folder-file-emoji">📄</div>
                         <div class="folder-file-name">Projects.txt</div>
                     </div>
+                    
+                    <!-- Other files -->
                     <div class="folder-file" data-filename="Contact Info.txt" data-content="# Contact Information%0A%0AEmail: admin@example.com%0A%0AGitHub: github.com/example%0A%0ATwitter: @example%0A%0ALinkedIn: linkedin.com/in/example%0A%0A----%0A%0AFeel free to reach out if you have any questions or would like to collaborate on a project!">
                         <div class="folder-file-emoji">📄</div>
                         <div class="folder-file-name">Contact Info.txt</div>
                     </div>
-                    
-                    <!-- Other files -->
                     <div class="folder-file">
                         <div class="folder-file-emoji">📊</div>
                         <div class="folder-file-name">Resume.pdf</div>
@@ -511,4 +511,236 @@
                         <div class="folder-file-name">Portfolio.jpg</div>
                     </div>
                     <div class="folder-file">
-                        <div class="folder-file-emoji">📁</div
+                        <div class="folder-file-emoji">📁</div>
+                        <div class="folder-file-name">Social Media</div>
+                    </div>
+                </div>
+            </div>
+            <div class="folder-statusbar">
+                6 items
+            </div>
+        </div>
+    </div>
+    
+    <div class="taskbar">
+        <div class="start-button">
+            <div class="start-emoji">🪟</div>
+            <span class="start-text">Start</span>
+        </div>
+        
+        <div class="taskbar-divider"></div>
+        
+        <div class="quick-launch">
+            <div class="quick-launch-icon">🌐</div>
+            <div class="quick-launch-icon" id="folderButton">📁</div>
+            <div class="quick-launch-icon" id="notepadButton">📝</div>
+        </div>
+        
+        <div class="taskbar-divider"></div>
+        
+        <div class="taskbar-apps">
+            <!-- Taskbar apps will be added dynamically -->
+        </div>
+        
+        <div class="taskbar-spacer"></div>
+        
+        <div class="system-tray">
+            <div class="tray-emoji">🔊</div>
+            <div class="tray-emoji">📶</div>
+            <span class="time" id="clock">13:45</span>
+        </div>
+    </div>
+
+    <script>
+        // Update the clock
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            
+            document.getElementById('clock').textContent = `${hours}:${minutes} ${ampm}`;
+        }
+        
+        // Update the clock every minute
+        updateClock();
+        setInterval(updateClock, 60000);
+        
+        // Make icons selectable
+        const icons = document.querySelectorAll('.icon');
+        icons.forEach(icon => {
+            icon.addEventListener('click', function() {
+                // Remove selected class from all icons
+                icons.forEach(i => i.classList.remove('selected'));
+                // Add selected class to clicked icon
+                this.classList.add('selected');
+            });
+        });
+        
+        // Double-click handling for icons
+        icons.forEach(icon => {
+            let clickCount = 0;
+            let clickTimer = null;
+            
+            icon.addEventListener('click', function(e) {
+                // Don't trigger double-click handling if clicking on an anchor (let the link work)
+                if (e.target.tagName === 'A' || e.target.closest('a')) {
+                    return;
+                }
+                
+                clickCount++;
+                
+                if (clickCount === 1) {
+                    clickTimer = setTimeout(function() {
+                        clickCount = 0;
+                    }, 300);
+                } else if (clickCount === 2) {
+                    clearTimeout(clickTimer);
+                    clickCount = 0;
+                    
+                    // Find the link in this icon and navigate to it
+                    const link = this.querySelector('a');
+                    if (link) {
+                        window.open(link.href, link.target || '_self');
+                    }
+                }
+            });
+        });
+
+        // Folder window functionality
+        const folderButton = document.getElementById('folderButton');
+        const folderWindow = document.getElementById('folderWindow');
+        const folderTitlebar = document.getElementById('folderTitlebar');
+        
+        // Open folder on click
+        folderButton.addEventListener('click', function() {
+            folderWindow.style.display = 'flex';
+            
+            // Add folder app to taskbar if it doesn't exist
+            const existingFolderApp = document.querySelector('.taskbar-app.folder-app');
+            if (!existingFolderApp) {
+                const folderApp = document.createElement('div');
+                folderApp.className = 'taskbar-app folder-app';
+                folderApp.innerHTML = '<div class="app-emoji">📁</div><span>My Documents</span>';
+                document.querySelector('.taskbar-apps').appendChild(folderApp);
+                
+                // Click on taskbar app to focus window
+                folderApp.addEventListener('click', function() {
+                    if (folderWindow.style.display === 'none') {
+                        folderWindow.style.display = 'flex';
+                    } else {
+                        folderWindow.style.display = 'none';
+                    }
+                });
+            }
+        });
+
+        // Notepad quick launch
+        const notepadButton = document.getElementById('notepadButton');
+        notepadButton.addEventListener('click', function() {
+            openNotepad('Untitled', '');
+        });
+        
+        // Close folder
+        function closeFolder() {
+            folderWindow.style.display = 'none';
+            
+            // Remove folder app from taskbar
+            const folderApp = document.querySelector('.taskbar-app.folder-app');
+            if (folderApp) {
+                folderApp.remove();
+            }
+        }
+        
+        // Make folder window draggable
+        let isDragging = false;
+        let offsetX, offsetY;
+        
+        folderTitlebar.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            folderWindow.classList.add('dragging');
+            
+            // Get the current position of the folder window
+            const rect = folderWindow.getBoundingClientRect();
+            
+            // Calculate the offset between the mouse position and the top-left corner of the window
+            offsetX = e.clientX - rect.left;
+            offsetY = e.clientY - rect.top;
+        });
+        
+        document.addEventListener('mousemove', function(e) {
+            if (isDragging) {
+                // Set the position of the folder window based on the mouse position and offset
+                folderWindow.style.left = (e.clientX - offsetX) + 'px';
+                folderWindow.style.top = (e.clientY - offsetY) + 'px';
+                folderWindow.style.transform = 'none'; // Remove the translate transform
+            }
+        });
+        
+        document.addEventListener('mouseup', function() {
+            isDragging = false;
+            folderWindow.classList.remove('dragging');
+        });
+
+        // Function to open notepad with specific file
+        function openNotepad(fileName, fileContent) {
+            window.open(`notepad.html?file=${encodeURIComponent(fileName)}&content=${encodeURIComponent(fileContent)}`, '_blank', 'width=600,height=400');
+            
+            // Add notepad app to taskbar
+            const existingNotepadApps = document.querySelectorAll(`.taskbar-app.notepad-app[data-filename="${fileName}"]`);
+            if (existingNotepadApps.length === 0) {
+                const notepadApp = document.createElement('div');
+                notepadApp.className = 'taskbar-app notepad-app';
+                notepadApp.setAttribute('data-filename', fileName);
+                notepadApp.innerHTML = `<div class="app-emoji">📝</div><span>${fileName}</span>`;
+                document.querySelector('.taskbar-apps').appendChild(notepadApp);
+            }
+        }
+
+        // Add click handlers for folder content
+        const folderFiles = document.querySelectorAll('.folder-file');
+        folderFiles.forEach(file => {
+            file.addEventListener('click', function() {
+                // Remove selected class from all files
+                folderFiles.forEach(f => f.style.backgroundColor = '');
+                // Add selected class to clicked file
+                this.style.backgroundColor = '#CCE8FF';
+            });
+            
+            // Double-click handling for folder content
+            let fileClickCount = 0;
+            let fileClickTimer = null;
+            
+            file.addEventListener('click', function() {
+                fileClickCount++;
+                
+                if (fileClickCount === 1) {
+                    fileClickTimer = setTimeout(function() {
+                        fileClickCount = 0;
+                    }, 300);
+                } else if (fileClickCount === 2) {
+                    clearTimeout(fileClickTimer);
+                    fileClickCount = 0;
+                    
+                    const fileName = this.querySelector('.folder-file-name').textContent;
+                    
+                    // Check if this is a text file
+                    if (fileName.endsWith('.txt')) {
+                        // Get data from data attributes
+                        const fileTitle = this.getAttribute('data-filename') || fileName;
+                        const fileContent = this.getAttribute('data-content') || '';
+                        
+                        // Open notepad with the file content
+                        openNotepad(fileTitle, fileContent);
+                    } else {
+                        alert(`Opening ${fileName}`);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
