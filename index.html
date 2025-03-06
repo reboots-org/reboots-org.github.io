@@ -21,23 +21,15 @@
         display: flex;
         justify-content: center;
       }
-      #hidden-link {
-        font-size: 20px;
-        color: #ff6347;
-        text-decoration: underline;
-        position: absolute;
-        top: 70%;
-        left: 50%;
-        transform: translateX(-50%);
-        cursor: pointer;
-        display: none;
-        animation: blink 2s infinite;
+      /* Removed the blinking text link styles */
+      #image-link {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
       }
-
-      @keyframes blink {
-        0% { opacity: 1; }
-        50% { opacity: 0; }
-        100% { opacity: 1; }
+      #image-link img {
+        width: 200px;
+        cursor: pointer;
       }
     </style>
   </head>
@@ -64,24 +56,12 @@
       </div>
     </div>
 
-    <!-- Hidden Link to Redirect -->
-    <div id="hidden-link" onclick="redirectToMainPage()">Click here to see something funny!</div>
+    <!-- Link with image at the bottom of the page -->
+    <div id="image-link">
+      <a href="yots.html">
+        <img src="HAVEUSEENTHEM_.png" alt="Funny Image">
+      </a>
+    </div>
 
-    <script>
-      // JavaScript to show the hidden link after 5 seconds of video playing
-      var video = document.querySelector('video');
-      var hiddenLink = document.getElementById('hidden-link');
-
-      video.addEventListener('play', function() {
-        setTimeout(function() {
-          hiddenLink.style.display = 'block';
-        }, 5000); // Show the link after 5 seconds of video playing
-      });
-
-      function redirectToMainPage() {
-        // Redirect to the original page with the ominous text
-        window.location.href = 'yots.html'; // Assuming index.html is the main page
-      }
-    </script>
   </body>
 </html>
