@@ -487,14 +487,20 @@
                     </div>
                 </div>
                 <div class="folder-content">
-                    <!-- Add your information content here -->
-                    <div class="folder-file">
+                    <!-- Text files with data attributes for notepad content -->
+                    <div class="folder-file" data-filename="About Me.txt" data-content="Hello! My name is Admin and this is my Windows XP computer.%0A%0AI am passionate about web development and retro computing.%0A%0AI enjoy creating nostalgic user interfaces that bring back the Windows XP era.%0A%0AThanks for checking out my desktop!">
                         <div class="folder-file-emoji">📄</div>
                         <div class="folder-file-name">About Me.txt</div>
                     </div>
-                    <div class="folder-file">
+                    <div class="folder-file" data-filename="Projects.txt" data-content="# My Current Projects%0A%0A1. Windows XP Interface Recreation%0A   - Recreated the classic Windows XP desktop%0A   - Added functioning windows and dialogs%0A   - Implemented draggable windows%0A%0A2. Retro Computing Archive%0A   - Collecting vintage software interfaces%0A   - Documenting UI design from 1995-2005%0A   - Creating educational resources%0A%0A3. Web Development Portfolio%0A   - Showcasing front-end development skills%0A   - Demonstrating CSS and JavaScript expertise%0A   - Building responsive and interactive experiences">
                         <div class="folder-file-emoji">📄</div>
                         <div class="folder-file-name">Projects.txt</div>
+                    </div>
+                    
+                    <!-- Other files -->
+                    <div class="folder-file" data-filename="Contact Info.txt" data-content="# Contact Information%0A%0AEmail: admin@example.com%0A%0AGitHub: github.com/example%0A%0ATwitter: @example%0A%0ALinkedIn: linkedin.com/in/example%0A%0A----%0A%0AFeel free to reach out if you have any questions or would like to collaborate on a project!">
+                        <div class="folder-file-emoji">📄</div>
+                        <div class="folder-file-name">Contact Info.txt</div>
                     </div>
                     <div class="folder-file">
                         <div class="folder-file-emoji">📊</div>
@@ -503,10 +509,6 @@
                     <div class="folder-file">
                         <div class="folder-file-emoji">🖼️</div>
                         <div class="folder-file-name">Portfolio.jpg</div>
-                    </div>
-                    <div class="folder-file">
-                        <div class="folder-file-emoji">📁</div>
-                        <div class="folder-file-name">Contact Info</div>
                     </div>
                     <div class="folder-file">
                         <div class="folder-file-emoji">📁</div>
@@ -531,15 +533,13 @@
         <div class="quick-launch">
             <div class="quick-launch-icon">🌐</div>
             <div class="quick-launch-icon" id="folderButton">📁</div>
+            <div class="quick-launch-icon" id="notepadButton">📝</div>
         </div>
         
         <div class="taskbar-divider"></div>
         
         <div class="taskbar-apps">
-            <div class="taskbar-app">
-                <div class="app-emoji">📝</div>
-                <span>Untitled - Notepad</span>
-            </div>
+            <!-- Taskbar apps will be added dynamically -->
         </div>
         
         <div class="taskbar-spacer"></div>
@@ -637,6 +637,12 @@
                 });
             }
         });
+
+        // Notepad quick launch
+        const notepadButton = document.getElementById('notepadButton');
+        notepadButton.addEventListener('click', function() {
+            openNotepad('Untitled', '');
+        });
         
         // Close folder
         function closeFolder() {
@@ -679,6 +685,21 @@
             folderWindow.classList.remove('dragging');
         });
 
+        // Function to open notepad with specific file
+        function openNotepad(fileName, fileContent) {
+            window.open(`notepad.html?file=${encodeURIComponent(fileName)}&content=${encodeURIComponent(fileContent)}`, '_blank', 'width=600,height=400');
+            
+            // Add notepad app to taskbar
+            const existingNotepadApps = document.querySelectorAll(`.taskbar-app.notepad-app[data-filename="${fileName}"]`);
+            if (existingNotepadApps.length === 0) {
+                const notepadApp = document.createElement('div');
+                notepadApp.className = 'taskbar-app notepad-app';
+                notepadApp.setAttribute('data-filename', fileName);
+                notepadApp.innerHTML = `<div class="app-emoji">📝</div><span>${fileName}</span>`;
+                document.querySelector('.taskbar-apps').appendChild(notepadApp);
+            }
+        }
+
         // Add click handlers for folder content
         const folderFiles = document.querySelectorAll('.folder-file');
         folderFiles.forEach(file => {
@@ -704,9 +725,19 @@
                     clearTimeout(fileClickTimer);
                     fileClickCount = 0;
                     
-                    // Show alert with file name
                     const fileName = this.querySelector('.folder-file-name').textContent;
-                    alert(`Opening ${fileName}`);
+                    
+                    // Check if this is a text file
+                    if (fileName.endsWith('.txt')) {
+                        // Get data from data attributes
+                        const fileTitle = this.getAttribute('data-filename') || fileName;
+                        const fileContent = this.getAttribute('data-content') || '';
+                        
+                        // Open notepad with the file content
+                        openNotepad(fileTitle, fileContent);
+                    } else {
+                        alert(`Opening ${fileName}`);
+                    }
                 }
             });
         });
