@@ -1151,10 +1151,7 @@
             { time: 4, text: "I clench my fists and beat it" },
             { time: 8, text: "I light my torch and burn it" },
             { time: 12, text: "I am the beast I worship" },
-            { time: 16, text: "I close my eyes and seize it" },
-            { time: 20, text: "I clench my fists and beat it" },
-            { time: 24, text: "I light my torch and burn it" },
-            { time: 28, text: "I am the beast I worship" },
+            // Rest of lyrics with timestamps relative to the 52-second mark
         ];
         
         // Populate lyrics panel
@@ -1168,10 +1165,12 @@
             });
         }
         
-        // Format time as mm:ss
+        // Format time as mm:ss, adding 52 seconds to show actual song time
         function formatTime(seconds) {
-            const min = Math.floor(seconds / 60);
-            const sec = Math.floor(seconds % 60).toString().padStart(2, '0');
+            // Add 52 seconds to get the actual song time
+            const totalSeconds = seconds + 52;
+            const min = Math.floor(totalSeconds / 60);
+            const sec = Math.floor(totalSeconds % 60).toString().padStart(2, '0');
             return `${min}:${sec}`;
         }
         
@@ -1181,10 +1180,23 @@
             
             const currentTime = audioPlayer.currentTime;
             
-            // Find the current lyric
+            // Don't show any lyrics before 52 seconds
+            if (currentTime < 52) {
+                // Clear any highlighted lyrics
+                document.querySelectorAll('.lyrics-line').forEach(line => {
+                    line.classList.remove('active');
+                });
+                currentLyricIndex = -1;
+                return;
+            }
+            
+            // Adjust current time to be relative to the 52-second mark
+            const adjustedTime = currentTime - 52;
+            
+            // Find the current lyric based on the adjusted time
             let foundIndex = -1;
             for (let i = lyrics.length - 1; i >= 0; i--) {
-                if (currentTime >= lyrics[i].time) {
+                if (adjustedTime >= lyrics[i].time) {
                     foundIndex = i;
                     break;
                 }
