@@ -41,7 +41,7 @@
     a#trigger-link:hover {
       background: #444;
     }
-    /* Jump scare overlay styling */
+    /* Jump scare overlay styling (no fade-in) */
     #jump-scare-overlay {
       position: fixed;
       top: 0;
@@ -55,16 +55,34 @@
       z-index: 10000;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.5s ease;
     }
     #jump-scare-overlay.active {
       opacity: 1;
       pointer-events: auto;
     }
+    /* Image starts small */
     #jump-scare-overlay img {
       max-width: 100%;
       max-height: 100%;
       filter: grayscale(1) contrast(1.2) brightness(0.8);
+      transform: scale(0.1);
+    }
+    /* Jump and shake animation */
+    @keyframes jumpAndShake {
+      0% { transform: scale(0.1) translate(0,0); }
+      20% { transform: scale(1.5) translate(0,0); }
+      25% { transform: scale(1.5) translate(-10px, 10px); }
+      30% { transform: scale(1.5) translate(10px, -10px); }
+      35% { transform: scale(1.5) translate(-10px, -10px); }
+      40% { transform: scale(1.5) translate(10px, 10px); }
+      45% { transform: scale(1.5) translate(-5px, 5px); }
+      50% { transform: scale(1.5) translate(5px, -5px); }
+      55% { transform: scale(1.5) translate(0,0); }
+      100% { transform: scale(1.5) translate(0,0); }
+    }
+    /* Trigger animation on active overlay */
+    #jump-scare-overlay.active img {
+      animation: jumpAndShake 0.7s ease-out;
     }
   </style>
 </head>
@@ -75,7 +93,7 @@
   
   <!-- Hidden overlay for the jump scare -->
   <div id="jump-scare-overlay">
-    <!-- Replace with the URL to your dead lady image -->
+    <!-- Replace with the URL to your dead lady PNG image -->
     <img src="lady.png" alt="Haunting Image">
   </div>
   
@@ -93,11 +111,9 @@
     
     triggerLink.addEventListener("click", function(event) {
       event.preventDefault();
-      // Add a brief delay (2 seconds) for suspense
+      // Brief delay (2 seconds) for suspense
       setTimeout(function() {
-        // Activate the overlay for the jump scare
         overlay.classList.add("active");
-        // Play the scream audio
         screamAudio.play();
         // Remove the overlay after 3 seconds
         setTimeout(function() {
