@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows XP Desktop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tahoma', sans-serif;
+        }
+        
+        body {
+            overflow: hidden;
+            background-color: #236B8E;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .desktop {
+            flex: 1;
+            background-image: linear-gradient(to bottom, #72B0DE, #235cda);
+            background-size: cover;
+            position: relative;
+            padding: 10px;
+            overflow: hidden;
+        }
+        
+        .bliss-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(to bottom, #72B0DE 0%, #72B0DE 50%, #91C34B 50%, #91C34B 100%);
+            z-index: 0;
+        }
+
+        .hills {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background-color: #91C34B;
+            border-radius: 40% 60% 0 0 / 70% 60% 0 0;
+            z-index: 1;
+        }
+
+        .desktop-icons {
+            display: grid;
+            grid-template-columns: repeat(1, 70px);
+            grid-gap: 20px;
+            padding: 10px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .icon {
+            width: 70px;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .icon img {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 5px;
+        }
+        
+        .icon-text {
+            color: white;
+            font-size: 11px;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 2px;
+            border-radius: 2px;
+        }
+        
+        .taskbar {
+            height: 30px;
+            background: linear-gradient(to bottom, #1C57C2 0%, #2A8BE2 5%, #2989D8 50%, #2580C7 95%, #2277BC 100%);
+            display: flex;
+            align-items: center;
+            padding: 0 2px;
+            position: relative;
+            z-index: 100;
+            border-top: 1px solid #5D9FD5;
+        }
+        
+        .start-button {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(to bottom, #3C8F00 0%, #5FBB4D 5%, #58B548 50%, #4AA838 95%, #3C8F00 100%);
+            height: 28px;
+            border-radius: 3px;
+            margin-right: 10px;
+            padding: 0 5px;
+            cursor: pointer;
+            box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+        }
+        
+        .start-button img {
+            width: 16px;
+            height: 16px;
+            margin-right: 3px;
+        }
+        
+        .start-text {
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .taskbar-divider {
+            width: 1px;
+            height: 20px;
+            background-color: #1C57C2;
+            margin: 0 5px;
+        }
+        
+        .quick-launch {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quick-launch-icon {
+            width: 22px;
+            height: 22px;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+        
+        .taskbar-spacer {
+            flex: 1;
+        }
+        
+        .system-tray {
+            display: flex;
+            align-items: center;
+            background-color: #0F80C4;
+            height: 22px;
+            padding: 0 5px;
+            border-radius: 2px;
+        }
+        
+        .system-tray img {
+            width: 16px;
+            height: 16px;
+            margin-left: 5px;
+        }
+        
+        .time {
+            color: white;
+            font-size: 11px;
+            margin-left: 5px;
+        }
+        
+        /* Additional styling for a more authentic look */
+        .icon.selected .icon-text {
+            background-color: rgba(49, 106, 197, 0.4);
+        }
+
+        .taskbar-apps {
+            display: flex;
+            height: 28px;
+            margin-left: 5px;
+        }
+
+        .taskbar-app {
+            background: linear-gradient(to bottom, #2D91E3 0%, #2B8FDA 45%, #267ACD 55%, #2475C4 100%);
+            border-radius: 2px;
+            padding: 0 8px;
+            margin-right: 3px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            max-width: 150px;
+            color: white;
+            font-size: 11px;
+            box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.2);
+        }
+
+        .taskbar-app img {
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+        }
+
+        .clouds {
+            position: absolute;
+            z-index: 2;
+        }
+
+        .cloud {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+        }
+
+        .cloud-1 {
+            width: 100px;
+            height: 35px;
+            top: 50px;
+            left: 100px;
+        }
+
+        .cloud-2 {
+            width: 150px;
+            height: 40px;
+            top: 80px;
+            right: 200px;
+        }
+
+        .cloud-3 {
+            width: 80px;
+            height: 25px;
+            top: 150px;
+            left: 280px;
+        }
+
+        .cloud-4 {
+            width: 130px;
+            height: 35px;
+            top: 30px;
+            right: 80px;
+        }
+    </style>
+</head>
+<body>
+    <div class="desktop">
+        <div class="bliss-bg"></div>
+        <div class="hills"></div>
+        <div class="clouds">
+            <div class="cloud cloud-1"></div>
+            <div class="cloud cloud-2"></div>
+            <div class="cloud cloud-3"></div>
+            <div class="cloud cloud-4"></div>
+        </div>
+        
+        <div class="desktop-icons">
+            <div class="icon" onclick="alert('My Computer clicked')">
+                <img src="/api/placeholder/40/40" alt="My Computer">
+                <div class="icon-text">My Computer</div>
+            </div>
+            
+            <div class="icon" onclick="alert('Recycle Bin clicked')">
+                <img src="/api/placeholder/40/40" alt="Recycle Bin">
+                <div class="icon-text">Recycle Bin</div>
+            </div>
+            
+            <div class="icon" onclick="alert('Internet Explorer clicked')">
+                <img src="/api/placeholder/40/40" alt="Internet Explorer">
+                <div class="icon-text">Internet Explorer</div>
+            </div>
+            
+            <div class="icon" onclick="alert('My Documents clicked')">
+                <img src="/api/placeholder/40/40" alt="My Documents">
+                <div class="icon-text">My Documents</div>
+            </div>
+            
+            <div class="icon" onclick="alert('Network Places clicked')">
+                <img src="/api/placeholder/40/40" alt="Network Places">
+                <div class="icon-text">Network Places</div>
+            </div>
+            
+            <div class="icon" onclick="alert('Control Panel clicked')">
+                <img src="/api/placeholder/40/40" alt="Control Panel">
+                <div class="icon-text">Control Panel</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="taskbar">
+        <div class="start-button" onclick="alert('Start button clicked')">
+            <img src="/api/placeholder/16/16" alt="Windows Logo">
+            <span class="start-text">Start</span>
+        </div>
+        
+        <div class="taskbar-divider"></div>
+        
+        <div class="quick-launch">
+            <img class="quick-launch-icon" src="/api/placeholder/22/22" alt="Quick Launch IE" onclick="alert('IE Quick Launch clicked')">
+            <img class="quick-launch-icon" src="/api/placeholder/22/22" alt="Quick Launch Folder" onclick="alert('Folder Quick Launch clicked')">
+        </div>
+        
+        <div class="taskbar-divider"></div>
+        
+        <div class="taskbar-apps">
+            <div class="taskbar-app">
+                <img src="/api/placeholder/16/16" alt="Notepad">
+                <span>Untitled - Notepad</span>
+            </div>
+        </div>
+        
+        <div class="taskbar-spacer"></div>
+        
+        <div class="system-tray">
+            <img src="/api/placeholder/16/16" alt="Volume">
+            <img src="/api/placeholder/16/16" alt="Network">
+            <span class="time" id="clock">13:45</span>
+        </div>
+    </div>
+
+    <script>
+        // Update the clock
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            
+            document.getElementById('clock').textContent = `${hours}:${minutes} ${ampm}`;
+        }
+        
+        // Update the clock every minute
+        updateClock();
+        setInterval(updateClock, 60000);
+        
+        // Make icons selectable
+        const icons = document.querySelectorAll('.icon');
+        icons.forEach(icon => {
+            icon.addEventListener('click', function() {
+                // Remove selected class from all icons
+                icons.forEach(i => i.classList.remove('selected'));
+                // Add selected class to clicked icon
+                this.classList.add('selected');
+            });
+        });
+        
+        // Double-click handling for icons
+        icons.forEach(icon => {
+            let clickCount = 0;
+            let clickTimer = null;
+            
+            icon.addEventListener('click', function() {
+                clickCount++;
+                
+                if (clickCount === 1) {
+                    clickTimer = setTimeout(function() {
+                        clickCount = 0;
+                    }, 300);
+                } else if (clickCount === 2) {
+                    clearTimeout(clickTimer);
+                    clickCount = 0;
+                    alert(`Opening ${this.querySelector('.icon-text').textContent}`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
