@@ -22,32 +22,12 @@
         
         .desktop {
             flex: 1;
-            background-image: linear-gradient(to bottom, #72B0DE, #235cda);
+            background-image: url('bliss.png');
             background-size: cover;
+            background-position: center;
             position: relative;
             padding: 10px;
             overflow: hidden;
-        }
-        
-        .bliss-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: linear-gradient(to bottom, #72B0DE 0%, #72B0DE 50%, #91C34B 50%, #91C34B 100%);
-            z-index: 0;
-        }
-
-        .hills {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 50%;
-            background-color: #91C34B;
-            border-radius: 40% 60% 0 0 / 70% 60% 0 0;
-            z-index: 1;
         }
 
         .desktop-icons {
@@ -190,56 +170,12 @@
             margin-right: 5px;
         }
 
-        .clouds {
-            position: absolute;
-            z-index: 2;
-        }
-
-        .cloud {
-            position: absolute;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-        }
-
-        .cloud-1 {
-            width: 100px;
-            height: 35px;
-            top: 50px;
-            left: 100px;
-        }
-
-        .cloud-2 {
-            width: 150px;
-            height: 40px;
-            top: 80px;
-            right: 200px;
-        }
-
-        .cloud-3 {
-            width: 80px;
-            height: 25px;
-            top: 150px;
-            left: 280px;
-        }
-
-        .cloud-4 {
-            width: 130px;
-            height: 35px;
-            top: 30px;
-            right: 80px;
-        }
+        /* Removed custom clouds since we're using the actual bliss.png image */
     </style>
 </head>
 <body>
     <div class="desktop">
-        <div class="bliss-bg"></div>
-        <div class="hills"></div>
-        <div class="clouds">
-            <div class="cloud cloud-1"></div>
-            <div class="cloud cloud-2"></div>
-            <div class="cloud cloud-3"></div>
-            <div class="cloud cloud-4"></div>
-        </div>
+        <!-- Using bliss.png as background instead of CSS elements -->
         
         <div class="desktop-icons">
             <div class="icon" onclick="alert('My Computer clicked')">
