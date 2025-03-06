@@ -42,7 +42,7 @@
     a#trigger-link:hover {
       background: #444;
     }
-    /* Jump scare overlay styling (no fade in transition) */
+    /* Jump scare overlay styling (no fade-in transition) */
     #jump-scare-overlay {
       position: fixed;
       top: 0;
@@ -142,19 +142,22 @@
       // Randomize the position (using viewport units)
       div.style.top = Math.random() * 90 + "vh";
       div.style.left = Math.random() * 90 + "vw";
-      // Random rotation for a scrambled, tilted, and upside down effect
+      // Random rotation for a scrambled, tilted, and upside-down effect
       const randomRotation = Math.random() * 360 - 180;
       div.style.transform = "rotate(" + randomRotation + "deg)";
       document.body.appendChild(div);
     }
     
     // Function to spawn the remaining error messages at an accelerating rate
-    function spawnRemainingMessages(count, delay) {
-      if (count <= 0) return;
+    function spawnRemainingMessages(count, delay, callback) {
+      if (count <= 0) {
+        if (callback) callback();
+        return;
+      }
       spawnErrorMessage();
       setTimeout(function() {
         // Accelerate the spawning by reducing the delay by 10% each time
-        spawnRemainingMessages(count - 1, delay * 0.9);
+        spawnRemainingMessages(count - 1, delay * 0.9, callback);
       }, delay);
     }
     
@@ -164,25 +167,28 @@
       errors.forEach(error => error.remove());
     }
     
+    // Function to trigger the jump scare
+    function triggerJumpScare() {
+      removeErrorMessages();
+      overlay.classList.add("active");
+      screamAudio.play();
+      // Remove the overlay after 3 seconds
+      setTimeout(function() {
+        overlay.classList.remove("active");
+      }, 3000);
+    }
+    
     triggerLink.addEventListener("click", function(event) {
       event.preventDefault();
       // Spawn one error message immediately
       spawnErrorMessage();
-      // After a short delay (e.g., 1 second), spawn the remaining 99 messages
+      // After a short delay (1 second), spawn the remaining 99 messages
       setTimeout(function() {
-        spawnRemainingMessages(99, 500); // starting with a 500ms delay
+        spawnRemainingMessages(99, 500, function() {
+          // When all error messages have been spawned, trigger the jump scare
+          triggerJumpScare();
+        });
       }, 1000);
-      
-      // After 2 seconds from the click, remove errors and trigger the jump scare
-      setTimeout(function() {
-        removeErrorMessages();
-        overlay.classList.add("active");
-        screamAudio.play();
-        // Remove the overlay after 3 seconds
-        setTimeout(function() {
-          overlay.classList.remove("active");
-        }, 3000);
-      }, 2000);
     });
   </script>
 </body>
