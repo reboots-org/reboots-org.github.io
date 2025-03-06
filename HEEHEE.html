@@ -45,6 +45,19 @@
         display: none;
         z-index: 1;
       }
+
+      .flashing-text {
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 30px;
+        color: #fff;
+        text-align: center;
+        display: none;
+        z-index: 2;
+        font-family: 'Courier New', Courier, monospace;
+      }
     </style>
   </head>
   <body>
@@ -54,14 +67,21 @@
     <!-- The flashing image -->
     <div class="flash-image"></div>
 
+    <!-- The flashing text -->
+    <div class="flashing-text">flowering children floundering in flour mills</div>
+
     <script>
       let flashImage = document.querySelector('.flash-image');
+      let flashingText = document.querySelector('.flashing-text');
 
-      // Flash the image quickly
+      // Flash the image quickly and show the text when it disappears
       setInterval(function() {
         flashImage.style.display = 'block';
+        flashingText.style.display = 'none'; // Hide text when image is visible
+
         setTimeout(function() {
           flashImage.style.display = 'none';
+          flashingText.style.display = 'block'; // Show text when image disappears
         }, 100); // Flash duration in milliseconds
       }, 1000); // Flash interval in milliseconds
     </script>
