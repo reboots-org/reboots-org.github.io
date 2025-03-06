@@ -1,0 +1,69 @@
+<!doctype HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ominous Flash</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #000;
+      }
+
+      .centered-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        filter: sepia(1) contrast(1.2) brightness(0.8);
+        animation: fadeInOut 3s infinite;
+      }
+
+      @keyframes fadeInOut {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      .flash-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100vw;
+        height: 100vh;
+        background-image: url('https://nypost.com/wp-content/uploads/sites/2/2023/11/NYPICHPDPICT000072001265.jpg');
+        background-size: cover;
+        display: none;
+        z-index: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- The central ominous image -->
+    <img class="centered-image" src="https://viralnova.com/wp-content/uploads/2019/10/desktop-1406690127.png" alt="Ominous Image" />
+
+    <!-- The flashing image -->
+    <div class="flash-image"></div>
+
+    <script>
+      let flashImage = document.querySelector('.flash-image');
+
+      // Flash the image quickly
+      setInterval(function() {
+        flashImage.style.display = 'block';
+        setTimeout(function() {
+          flashImage.style.display = 'none';
+        }, 100); // Flash duration in milliseconds
+      }, 1000); // Flash interval in milliseconds
+    </script>
+  </body>
+</html>
