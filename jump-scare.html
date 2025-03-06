@@ -103,21 +103,24 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: linear-gradient(45deg, #ff00ff, #00ffff);
-      color: #000;
+      background-color: #8B0000; /* Blood red */
+      color: #fff;
       padding: 10px 20px;
       font-size: 1.5em;
-      border: 3px solid #ffff00;
+      border: 3px solid black;
       text-decoration: none;
       border-radius: 8px;
       z-index: 11000;
-      animation: flicker 1.5s infinite alternate;
-      box-shadow: 0 0 15px #ff00ff;
+      animation: flicker 1.5s infinite;
+      box-shadow: 0 0 15px #8B0000;
     }
     @keyframes flicker {
-      0% { opacity: 1; }
-      50% { opacity: 0.5; }
-      100% { opacity: 1; }
+      0% { background-color: #8B0000; }
+      20% { background-color: black; }
+      40% { background-color: #8B0000; }
+      60% { background-color: black; }
+      80% { background-color: #8B0000; }
+      100% { background-color: #8B0000; }
     }
   </style>
 </head>
