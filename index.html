@@ -4,97 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DwAbIt</title>
-    <style>
-      .floating-gif {
-        position: fixed;
-        top: 0;
-        right: 0;
-        z-index: 1000;
-      }
-      .ominous-text {
-        position: fixed;
-        top: 0;
-        right: 10px;
-        width: 200px;
-        height: 100%;
-        font-family: 'Comic Sans MS', cursive, sans-serif;
-        color: #ff0000;
-        font-size: 1.5em;
-        text-align: center;
-        animation: flash 0.5s infinite alternate;
-        pointer-events: none;
-      }
-      @keyframes flash {
-        0% { opacity: 1; }
-        100% { opacity: 0; }
-      }
-      /* Video Page Specific Styles */
-      .video-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: flex-start;
-        height: 100vh;
-      }
-
-      .text-container {
-        width: 30%;
-        font-family: Arial, sans-serif;
-        font-size: 1.2em;
-        color: #ffffff;
-        padding: 20px;
-        overflow-y: auto;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-      }
-
-      #hidden-link {
-        font-size: 20px;
-        color: #ff6347;
-        text-decoration: underline;
-        position: absolute;
-        top: 70%;
-        left: 50%;
-        transform: translateX(-50%);
-        cursor: pointer;
-        display: none;
-        animation: blink 2s infinite;
-      }
-
-      @keyframes blink {
-        0% { opacity: 1; }
-        50% { opacity: 0; }
-        100% { opacity: 1; }
-      }
-    </style>
   </head>
   <body>
     <div class="video-page">
-      <div class="video-container">
-        <div class="text-container">
-          <p>He feels fantastic<br>
-            Hey, hey, hey<br><br>
-            They feel fantastic<br>
-            Hey, hey, hey<br><br>
-            We are fantastic<br>
-            Hey, hey, hey<br><br>
-            He feels fantastic<br><br>
-            We feel fantastic<br>
-            Hey, hey, hey<br><br>
-            Run, run, run, run, run, run 110000°52.6 Ufsia, 1111011°23.6 Emuk, run, run, run
-          </p>
-        </div>
-        <div class="video-container">
-          <video width="600" controls autoplay>
-            <source src="iff.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </div>
+      <div style="text-align: left; padding: 20px;">
+        <p>He feels fantastic<br>
+          Hey, hey, hey<br><br>
+          They feel fantastic<br>
+          Hey, hey, hey<br><br>
+          We are fantastic<br>
+          Hey, hey, hey<br><br>
+          He feels fantastic<br><br>
+          We feel fantastic<br>
+          Hey, hey, hey<br><br>
+          Run, run, run, run, run, run 110000°52.6 Ufsia, 1111011°23.6 Emuk, run, run, run
+        </p>
       </div>
-
-      <!-- Hidden Link to Redirect -->
-      <div id="hidden-link" onclick="redirectToMainPage()">Click here to see something funny!</div>
+      <div>
+        <video width="600" controls autoplay>
+          <source src="iff.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
     </div>
+
+    <!-- Hidden Link to Redirect -->
+    <div id="hidden-link" onclick="redirectToMainPage()">Click here to see something funny!</div>
 
     <script>
       // JavaScript to show the hidden link after 5 seconds of video playing
@@ -112,23 +47,5 @@
         window.location.href = 'yots.html'; // Assuming index.html is the main page
       }
     </script>
-
-    <!-- The Original Page's Ominous Text and GIF (hidden initially) -->
-    <div style="display: none;">
-      <h1>Truce till next Monday, spread word.</h1>
-      <h1>We know what you did</h1>
-      <pre>
-        <!-- Same text as provided in the original -->
-      </pre>
-      <img class="floating-gif" src="https://i.gifer.com/origin/32/32cd4ac4454c178ff4f7034637cc9dfc_w200.gif" alt="Floating GIF">
-      <div class="ominous-text">
-        I'VE ALWAYS KNOWN<br>
-        I'VE ALWAYS KNOWN<br>
-        I'VE ALWAYS KNOWN<br>
-        I'VE ALWAYS KNOWN<br>
-        I'VE ALWAYS KNOWN<br>
-        I'VE ALWAYS KNOWN<br>
-      </div>
-    </div>
   </body>
 </html>
