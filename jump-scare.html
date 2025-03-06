@@ -120,34 +120,42 @@
     const overlay = document.getElementById("jump-scare-overlay");
     const screamAudio = document.getElementById("scream-audio");
 
-    // Function to spawn 100 error messages in random positions
-    function spawnErrorMessages() {
-      const messages = [
-        "ERROR: System failure!",
-        "WARNING: Data corruption detected!",
-        "FATAL ERROR: Unidentified anomaly!",
-        "ERROR: Unable to recover memory!",
-        "ALERT: The past is not erased!",
-        "CRITICAL: Reality bending in progress!",
-        "WARNING: DO NOT LOOK BEHIND YOU!",
-        "ERROR: This broadcast is not meant for you!",
-        "WARNING: Fragmented signals detected!",
-        "CRITICAL: Unexpected behavior in system!"
-      ];
-      
-      for (let i = 0; i < 100; i++) {
-        const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-        const div = document.createElement('div');
-        div.classList.add('error-message');
-        div.textContent = randomMessage;
-        // Randomize the position (using viewport units)
-        div.style.top = Math.random() * 90 + "vh";
-        div.style.left = Math.random() * 90 + "vw";
-        // Random rotation for a scrambled, tilted, and upside down effect
-        const randomRotation = Math.random() * 360 - 180;
-        div.style.transform = "rotate(" + randomRotation + "deg)";
-        document.body.appendChild(div);
-      }
+    const messages = [
+      "ERROR: System failure!",
+      "WARNING: Data corruption detected!",
+      "FATAL ERROR: Unidentified anomaly!",
+      "ERROR: Unable to recover memory!",
+      "ALERT: The past is not erased!",
+      "CRITICAL: Reality bending in progress!",
+      "WARNING: DO NOT LOOK BEHIND YOU!",
+      "ERROR: This broadcast is not meant for you!",
+      "WARNING: Fragmented signals detected!",
+      "CRITICAL: Unexpected behavior in system!"
+    ];
+
+    // Function to spawn a single error message
+    function spawnErrorMessage() {
+      const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+      const div = document.createElement('div');
+      div.classList.add('error-message');
+      div.textContent = randomMessage;
+      // Randomize the position (using viewport units)
+      div.style.top = Math.random() * 90 + "vh";
+      div.style.left = Math.random() * 90 + "vw";
+      // Random rotation for a scrambled, tilted, and upside down effect
+      const randomRotation = Math.random() * 360 - 180;
+      div.style.transform = "rotate(" + randomRotation + "deg)";
+      document.body.appendChild(div);
+    }
+    
+    // Function to spawn the remaining error messages at an accelerating rate
+    function spawnRemainingMessages(count, delay) {
+      if (count <= 0) return;
+      spawnErrorMessage();
+      setTimeout(function() {
+        // Accelerate the spawning by reducing the delay by 10% each time
+        spawnRemainingMessages(count - 1, delay * 0.9);
+      }, delay);
     }
     
     // Function to remove all error messages
@@ -158,10 +166,14 @@
     
     triggerLink.addEventListener("click", function(event) {
       event.preventDefault();
-      // Spawn 100 error messages immediately
-      spawnErrorMessages();
+      // Spawn one error message immediately
+      spawnErrorMessage();
+      // After a short delay (e.g., 1 second), spawn the remaining 99 messages
+      setTimeout(function() {
+        spawnRemainingMessages(99, 500); // starting with a 500ms delay
+      }, 1000);
       
-      // After 2 seconds, remove errors and trigger the jump scare
+      // After 2 seconds from the click, remove errors and trigger the jump scare
       setTimeout(function() {
         removeErrorMessages();
         overlay.classList.add("active");
