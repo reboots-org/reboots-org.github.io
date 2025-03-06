@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows XP Notepad</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tahoma', sans-serif;
+        }
+        
+        body {
+            background-color: #ECE9D8;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .notepad-window {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #0055EA;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .titlebar {
+            height: 28px;
+            background: linear-gradient(to right, #0058E6, #2686E0, #7EB6E7);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 13px;
+            user-select: none;
+        }
+        
+        .title {
+            display: flex;
+            align-items: center;
+        }
+        
+        .title-emoji {
+            margin-right: 6px;
+            font-size: 16px;
+        }
+        
+        .window-controls {
+            display: flex;
+        }
+        
+        .window-button {
+            width: 21px;
+            height: 21px;
+            margin-left: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            cursor: pointer;
+            border-radius: 3px;
+            user-select: none;
+        }
+        
+        .window-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .close-button {
+            background-color: #FF4943;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .menubar {
+            height: 22px;
+            background-color: #ECE9D8;
+            border-bottom: 1px solid #ACA899;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            user-select: none;
+        }
+        
+        .menu-item {
+            padding: 3px 6px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .menu-item:hover {
+            background-color: #316AC5;
+            color: white;
+        }
+        
+        .editor-container {
+            flex: 1;
+            background-color: white;
+            padding: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .editor {
+            width: 100%;
+            height: 100%;
+            border: none;
+            resize: none;
+            outline: none;
+            font-family: 'Lucida Console', monospace;
+            font-size: 14px;
+        }
+        
+        .statusbar {
+            height: 20px;
+            background-color: #ECE9D8;
+            border-top: 1px solid #ACA899;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            font-size: 11px;
+            color: #444;
+            user-select: none;
+        }
+        
+        .dialog-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            display: none;
+        }
+        
+        .dialog {
+            width: 350px;
+            background-color: #ECE9D8;
+            border: 1px solid #0055EA;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .dialog-titlebar {
+            height: 28px;
+            background: linear-gradient(to right, #0058E6, #2686E0, #7EB6E7);
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        
+        .dialog-content {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dialog-icon {
+            font-size: 30px;
+            margin-right: 15px;
+        }
+        
+        .dialog-message {
+            font-size: 12px;
+        }
+        
+        .dialog-buttons {
+            display: flex;
+            justify-content: flex-end;
+            padding: 15px;
+            gap: 5px;
+        }
+        
+        .dialog-button {
+            padding: 5px 10px;
+            background-color: #ECE9D8;
+            border: 1px solid #ACA899;
+            border-radius: 3px;
+            font-size: 12px;
+            cursor: pointer;
+            min-width: 75px;
+            text-align: center;
+        }
+        
+        .dialog-button:hover {
+            background-color: #D8D4C5;
+        }
+        
+        /* For mobile devices */
+        @media (max-width: 768px) {
+            .menubar {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="notepad-window">
+        <div class="titlebar" id="titlebar">
+            <div class="title">
+                <div class="title-emoji">📝</div>
+                <span id="window-title">Untitled - Notepad</span>
+            </div>
+            <div class="window-controls">
+                <div class="window-button">_</div>
+                <div class="window-button">□</div>
+                <div class="window-button close-button" onclick="closeNotepad()">✕</div>
+            </div>
+        </div>
+        <div class="menubar">
+            <div class="menu-item">File</div>
+            <div class="menu-item">Edit</div>
+            <div class="menu-item">Format</div>
+            <div class="menu-item">View</div>
+            <div class="menu-item">Help</div>
+        </div>
+        <div class="editor-container">
+            <textarea class="editor" id="editor" spellcheck="false"></textarea>
+        </div>
+        <div class="statusbar">
+            <div id="status">Ln 1, Col 1</div>
+        </div>
+    </div>
+    
+    <div class="dialog-overlay" id="saveDialog">
+        <div class="dialog">
+            <div class="dialog-titlebar">
+                <span>Notepad</span>
+            </div>
+            <div class="dialog-content">
+                <div class="dialog-icon">❓</div>
+                <div class="dialog-message">Do you want to save changes to this document?</div>
+            </div>
+            <div class="dialog-buttons">
+                <div class="dialog-button" id="saveButton">Save</div>
+                <div class="dialog-button" id="dontSaveButton">Don't Save</div>
+                <div class="dialog-button" id="cancelButton">Cancel</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const fileName = urlParams.get('file') || 'Untitled';
+        const fileContent = urlParams.get('content') || '';
+        
+        // Set document title and window title
+        document.title = `${fileName} - Notepad`;
+        document.getElementById('window-title').textContent = `${fileName} - Notepad`;
+        
+        // Set editor content
+        const editor = document.getElementById('editor');
+        editor.value = decodeURIComponent(fileContent);
+        
+        // Focus editor
+        editor.focus();
+        
+        // Track changes for save dialog
+        let isModified = false;
+        editor.addEventListener('input', function() {
+            if (!isModified) {
+                isModified = true;
+                document.getElementById('window-title').textContent = `*${fileName} - Notepad`;
+            }
+            
+            // Update cursor position
+            updateCursorPosition();
+        });
+        
+        // Update cursor position in status bar
+        function updateCursorPosition() {
+            const text = editor.value;
+            const cursorPos = editor.selectionStart;
+            
+            // Calculate line and column
+            let line = 1;
+            let col = 1;
+            
+            for (let i = 0; i < cursorPos; i++) {
+                if (text[i] === '\n') {
+                    line++;
+                    col = 1;
+                } else {
+                    col++;
+                }
+            }
+            
+            document.getElementById('status').textContent = `Ln ${line}, Col ${col}`;
+        }
+        
+        // Add event listener for cursor position
+        editor.addEventListener('click', updateCursorPosition);
+        editor.addEventListener('keyup', updateCursorPosition);
+        
+        // Make sure initial position is shown
+        updateCursorPosition();
+        
+        // Make the window draggable
+        const titlebar = document.getElementById('titlebar');
+        let isDragging = false;
+        let offsetX, offsetY;
+        
+        // Since we're in full window mode, we don't actually move the window
+        // This would be used if the notepad was in a desktop environment
+        
+        // Close Notepad
+        function closeNotepad() {
+            if (isModified) {
+                // Show save dialog
+                document.getElementById('saveDialog').style.display = 'flex';
+                
+                // Save button
+                document.getElementById('saveButton').addEventListener('click', function() {
+                    // In a real app, this would save the file
+                    // For now, we just close
+                    window.close();
+                });
+                
+                // Don't Save button
+                document.getElementById('dontSaveButton').addEventListener('click', function() {
+                    window.close();
+                });
+                
+                // Cancel button
+                document.getElementById('cancelButton').addEventListener('click', function() {
+                    document.getElementById('saveDialog').style.display = 'none';
+                });
+            } else {
+                window.close();
+            }
+        }
+        
+        // Listen for keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+S for save
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                alert('Save functionality would go here in a real app.');
+                isModified = false;
+                document.getElementById('window-title').textContent = `${fileName} - Notepad`;
+            }
+            
+            // Ctrl+N for new
+            if (e.ctrlKey && e.key === 'n') {
+                e.preventDefault();
+                if (isModified) {
+                    document.getElementById('saveDialog').style.display = 'flex';
+                } else {
+                    editor.value = '';
+                    fileName = 'Untitled';
+                    document.title = `${fileName} - Notepad`;
+                    document.getElementById('window-title').textContent = `${fileName} - Notepad`;
+                    isModified = false;
+                }
+            }
+        });
+        
+        // In case window.close() is blocked by the browser
+        window.addEventListener('beforeunload', function(e) {
+            if (isModified) {
+                e.preventDefault();
+                e.returnValue = '';
+                return '';
+            }
+        });
+    </script>
+</body>
+</html>
