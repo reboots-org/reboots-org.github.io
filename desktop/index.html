@@ -169,39 +169,34 @@
             height: 16px;
             margin-right: 5px;
         }
+        
+        /* Emoji styles */
+        .emoji {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
     </style>
 </head>
 <body>
     <div class="desktop">
         <div class="desktop-icons">
             <div class="icon">
-                <img src="/api/placeholder/40/40" alt="My Computer">
-                <div class="icon-text">My Computer</div>
+                <a href="https://example.com/yots" target="_blank">
+                    <div class="emoji">👄</div>
+                    <div class="icon-text">'Tis The Year of the Snitch</div>
+                </a>
             </div>
             
             <div class="icon">
-                <img src="/api/placeholder/40/40" alt="Recycle Bin">
-                <div class="icon-text">Recycle Bin</div>
-            </div>
-            
-            <div class="icon">
-                <img src="/api/placeholder/40/40" alt="Internet Explorer">
-                <div class="icon-text">Internet Explorer</div>
-            </div>
-            
-            <div class="icon">
-                <img src="/api/placeholder/40/40" alt="My Documents">
-                <div class="icon-text">My Documents</div>
-            </div>
-            
-            <div class="icon">
-                <img src="/api/placeholder/40/40" alt="Network Places">
-                <div class="icon-text">Network Places</div>
-            </div>
-            
-            <div class="icon">
-                <img src="/api/placeholder/40/40" alt="Control Panel">
-                <div class="icon-text">Control Panel</div>
+                <a href="https://example.com/broadcast" target="_blank">
+                    <div class="emoji">🎙️</div>
+                    <div class="icon-text">Humane Radio Broadcast</div>
+                </a>
             </div>
         </div>
     </div>
@@ -271,7 +266,12 @@
             let clickCount = 0;
             let clickTimer = null;
             
-            icon.addEventListener('click', function() {
+            icon.addEventListener('click', function(e) {
+                // Don't trigger double-click handling if clicking on an anchor (let the link work)
+                if (e.target.tagName === 'A' || e.target.closest('a')) {
+                    return;
+                }
+                
                 clickCount++;
                 
                 if (clickCount === 1) {
@@ -281,7 +281,12 @@
                 } else if (clickCount === 2) {
                     clearTimeout(clickTimer);
                     clickCount = 0;
-                    alert(`Opening ${this.querySelector('.icon-text').textContent}`);
+                    
+                    // Find the link in this icon and navigate to it
+                    const link = this.querySelector('a');
+                    if (link) {
+                        window.open(link.href, link.target || '_self');
+                    }
                 }
             });
         });
