@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forgotten Archive - Random</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Random content page styling */
+        body {
+            background-color: #000;
+            color: #CC0000;
+            font-family: "Courier New", monospace;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #FF0000;
+            font-size: 2.5em;
+            text-shadow: 2px 2px #000;
+        }
+        #randomContent {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px dashed #990000;
+            background-color: rgba(0,0,0,0.8);
+            display: inline-block;
+            text-align: left;
+            max-width: 600px;
+        }
+        a.backLink {
+            display: block;
+            margin-top: 20px;
+            color: #FF0000;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Random Archive</h1>
+    <div id="randomContent">
+        <p id="randomText"></p>
+        <img id="randomImage" src="" alt="Random" style="width:100%; display:none;">
+    </div>
+    <a class="backLink" href="index2.html">← Back to Alternate Index</a>
+    <script>
+        // Array of random disturbing messages
+        const messages = [
+            "The walls are closing in...",
+            "I hear whispers in the static...",
+            "Time fractures, and nothing is as it seems.",
+            "A ghost lurks behind every mirror.",
+            "The past is not dead, it lives within us."
+        ];
+        // Array of random image URLs (replace with actual disturbing images)
+        const images = [
+            "https://via.placeholder.com/600x400?text=Random+Creepy+1",
+            "https://via.placeholder.com/600x400?text=Random+Creepy+2",
+            "https://via.placeholder.com/600x400?text=Random+Creepy+3"
+        ];
+        function showRandomContent() {
+            const randomText = messages[Math.floor(Math.random() * messages.length)];
+            const randomImg = images[Math.floor(Math.random() * images.length)];
+            document.getElementById('randomText').textContent = randomText;
+            const imgElem = document.getElementById('randomImage');
+            imgElem.src = randomImg;
+            imgElem.style.display = 'block';
+        }
+        // Show random content on load and every 10 seconds
+        showRandomContent();
+        setInterval(showRandomContent, 10000);
+    </script>
+</body>
+</html>
