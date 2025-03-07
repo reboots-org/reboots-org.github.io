@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FORGOTTEN ARCHIVE - Blood Edition</title>
+
+  <style>
+/* 
+========================================================
+                    PAGE-WIDE STYLES
+========================================================
+   This styling is intentionally overdone and reminiscent
+   of old websites with harsh color schemes, blinking text,
+   marquee elements, and table-based layouts.
+*/
+
+body {
+  /* A black background with a repeating spooky image. */
+  background-color: #000000;
+  background-image: url("spooky_bg.gif"); /* Replace with your own spooky tile */
+  background-repeat: repeat;
+  background-attachment: fixed;
+  color: #CC0000; /* Blood red text */
+  margin: 0;
+  padding: 0;
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
+}
+
+/* Center container for main table-based layout */
+#outerContainer {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  border: none;
+}
+
+/* 
+   Large banner across the top, old style 
+   reminiscent of an Angelfire or Geocities banner 
+*/
+#bannerArea {
+  width: 100%;
+  height: 160px;
+  background: url("blood_banner.gif") no-repeat center center; /* Replace with your own banner */
+  background-size: cover;
+  border-bottom: 3px double #CC0000;
+  position: relative;
+}
+
+/* A small text or disclaimers over the banner if needed */
+#bannerTextOverlay {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  color: #FF0000;
+  font-weight: bold;
+  font-size: 14px;
+  background-color: rgba(0,0,0,0.5);
+  padding: 5px;
+  border: 1px solid #FF0000;
+}
+
+/* 
+   Under Construction animations 
+   Typically big, ugly GIFs from the 90s 
+*/
+.underConstruction {
+  display: block;
+  margin: 10px auto;
+  border: 2px solid #990000;
+}
+
+/* 
+   Main table: typical old website layout
+   Left nav, center content, right weird space
+*/
+#mainTable {
+  width: 100%;
+  border: 0;
+  cellspacing: 0;
+  cellpadding: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* Left sidebar with navigation or disclaimers */
+#leftNav {
+  width: 20%;
+  vertical-align: top;
+  padding: 10px;
+  background-color: rgba(20,0,0,0.8);
+  border-right: 2px dashed #990000;
+}
+
+/* Center content area with logs, text, disclaimers, etc. */
+#centerContent {
+  width: 60%;
+  vertical-align: top;
+  padding: 20px;
+}
+
+/* Right sidebar for counters, guestbook links, random images */
+#rightNav {
+  width: 20%;
+  vertical-align: top;
+  padding: 10px;
+  background-color: rgba(20,0,0,0.8);
+  border-left: 2px dashed #990000;
+}
+
+/* Headings in the left nav */
+.leftNavHeading {
+  color: #FF0000;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+/* Basic link styling: red links, underline on hover */
+a {
+  color: #FF0000;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* 
+   The marquee styles 
+   We use them multiple times to replicate old websites 
+*/
+.marqueeText {
+  font-size: 16px;
+  color: #FF0000;
+  background-color: #000000;
+}
+
+/* Blink effect (likely ignored by modern browsers, but historically accurate) */
+blink {
+  animation: blinkAnim 1s step-start infinite;
+}
+@keyframes blinkAnim {
+  50% { opacity: 0; }
+}
+
+/* Main heading inside center content */
+#mainHeading {
+  text-align: center;
+  color: #FF0000;
+  font-size: 28px;
+  text-shadow: 2px 2px #000;
+  margin-top: 10px;
+}
+
+/* Subheading style */
+.subheading {
+  color: #CC0000;
+  font-size: 20px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+/* Horizontal rule style, a very “90s” look with dashed or double lines */
+hr.redHr {
+  border: 0;
+  height: 2px;
+  background: #CC0000;
+}
+
+/* Table for the logs area: old style with borders or cell spacing */
+#logsTable {
+  width: 100%;
+  border: 2px dashed #990000;
+  border-collapse: collapse;
+  margin: 10px 0;
+}
+#logsTable td {
+  border: 1px solid #660000;
+  padding: 5px;
+}
+
+/* For each log line text */
+.logLine {
+  color: #CC0000;
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+}
+
+/* 
+   Pop-up error or disclaimers that appear randomly 
+*/
+#horrorPopup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  transform: translate(-50%, -50%);
+  background: #330000;
+  color: #FF0000;
+  border: 3px solid #FF0000;
+  padding: 20px;
+  display: none;
+  text-align: center;
+  font-weight: bold;
+  z-index: 9999;
+  box-shadow: 0 0 20px #FF0000;
+}
+
+/* 
+   Corruption effect: we'll apply random character substitution 
+   to elements with the 'corrupt' class 
+*/
+.corrupt {
+  color: #CC0000;
+  background-color: transparent;
+  transition: color 0.2s;
+}
+
+/* 
+   Footer area with typical old “hosted by” or “counter” references 
+*/
+#footerArea {
+  width: 100%;
+  background-color: #000000;
+  text-align: center;
+  border-top: 2px double #990000;
+  padding: 10px 0;
+  margin-top: 20px;
+}
+
+/* 
+   Over 1000 lines total, including the logs 
+   Everything is purposeful for an old-school aesthetic 
+*/
+
+/* 
+========================================================
+                END PAGE-WIDE STYLES
+========================================================
+*/
+  </style>
+</head>
+
+<body>
+
+<!-- AUDIO: Distorted or eerie ambient track -->
+<audio id="ambientAudio" src="ambient.mp3" autoplay loop></audio>
+
+<!-- Outer Container: entire page structure -->
+<div id="outerContainer">
+
+  <!-- Banner Area at the top -->
+  <div id="bannerArea">
+    <div id="bannerTextOverlay">BLOOD ARCHIVE 2001 EDITION</div>
+  </div>
+
+  <!-- A marquee that scrolls across the top, old-school style -->
+  <marquee class="marqueeText" behavior="scroll" direction="left" scrollamount="3">
+    <blink>THIS ARCHIVE IS UNDER CONSTRUCTION - PLEASE SIGN MY GUESTBOOK BELOW</blink>
+  </marquee>
+
+  <!-- Under construction GIF for authenticity -->
+  <center>
+    <img src="under_construction.gif" class="underConstruction" alt="Under Construction">
+  </center>
+
+  <!-- Main Table Layout: left nav, center content, right nav -->
+  <table id="mainTable">
+    <tr>
+      <!-- Left Nav -->
+      <td id="leftNav">
+        <div class="leftNavHeading"><blink>NAVIGATION</blink></div>
+        <ul style="list-style-type: square;">
+          <li><a href="#homeSection">Home</a></li>
+          <li><a href="#logsSection">Logs</a></li>
+          <li><a href="#weirdSection">Weird Section</a></li>
+          <li><a href="#guestbookSection">Guestbook</a></li>
+          <li><a href="#linksSection">Links</a></li>
+        </ul>
+
+        <hr class="redHr">
+
+        <div class="leftNavHeading"><blink>DISCLAIMER</blink></div>
+        <p style="font-size:14px;">
+          This site is extremely old. Some data may be corrupted. 
+          Use at your own risk.
+        </p>
+        <hr class="redHr">
+
+        <div class="leftNavHeading"><blink>CHAT ROOM</blink></div>
+        <p style="font-size:14px;">
+          <a href="chat.html" target="_blank">Enter Chat</a> (Beta)
+        </p>
+
+        <hr class="redHr">
+        <div class="leftNavHeading">COUNTER</div>
+        <!-- A fake old style counter -->
+        <p style="text-align:center;">
+          <img src="https://www.angelfire.com/cgi-bin/counter.gif" alt="Counter"><br>
+          <small>Visitors since 2001</small>
+        </p>
+
+      </td>
+
+      <!-- Center Content -->
+      <td id="centerContent">
+        <h1 id="mainHeading">WELCOME TO THE ARCHIVE</h1>
+
+        <p>
+          <blink>Check back frequently</blink> for updates. 
+          This archive has been around since the early 2000s, 
+          containing numerous logs and references. 
+        </p>
+
+        <hr class="redHr">
+
+        <!-- Another marquee for that extra old vibe -->
+        <marquee class="marqueeText" direction="right" scrollamount="2">
+          <blink>UNDER CONSTRUCTION!</blink>
+        </marquee>
+
+        <hr class="redHr">
+
+        <!-- The weird section anchor -->
+        <a name="weirdSection"></a>
+        <div class="subheading">Bizarre Observations</div>
+        <p>
+          <span class="corrupt">We have discovered anomalies in the system logs that defy explanation.</span><br>
+          The more we investigate, the more strange references appear. 
+        </p>
+
+        <hr class="redHr">
+
+        <!-- Logs Section Anchor -->
+        <a name="logsSection"></a>
+        <div class="subheading">System Logs</div>
+        <p>
+          Below is a massive table of system logs from 00:00:01 up to an unspecified time. 
+          <blink>Some lines may appear corrupted.</blink>
+        </p>
+
+        <!-- Massive logs table -->
+        <table id="logsTable">
+          <tbody>
+
+<!-- 
+========================================================
+            HERE COME HUNDREDS OF LOG LINES
+========================================================
+-->
+
+<!-- We'll generate a large chunk of logs to push line count 
+     Each row has a "logLine" cell with a .corrupt span 
+-->
+
+<!-- Start Log Rows -->
+<tr>
+  <td>
+    <span class="logLine corrupt">LOG 00:00:01 - [BOOT] System initialization started.</span>
+  </td>
+</tr>
+<tr>
+  <td>
+    <span class="logLine corrupt">LOG 00:00:02 - [WARNING] CPU temperature spike detected.</span>
+  </td>
+</tr>
+<tr>
+  <td>
+    <span class="logLine corrupt">LOG 00:00:03 - [ERROR] Sector #001 not responding.</span>
+  </td>
+</tr>
+<tr>
+  <td>
+    <span class="logLine corrupt">LOG 00:00:04 - [ALERT] Security override requested.</span>
+  </td>
+</tr>
+<tr>
+  <td>
+    <span class="logLine corrupt">LOG 00:00:05 - [SYSTEM] Attempting re-route of data flow...</span>
+  </td>
+</tr>
+<tr>
+  <td>
+    <span class="logLine corrupt">LOG 00:00:06 - [WARNING] Memory anomaly encountered.</span>
+  </td>
+</tr>
+<tr>
+  <td>
+    <span class="logLine corrupt">LOG 00:00:07 - [NOTICE] Possible infiltration in progress.</span>
+  </td>
+</tr>
+<tr>
+  <td>
+    <span class="logLine corrupt">LOG 00:00:08 - [ERROR] Data string mismatch. Rolling back changes...</span>
+  </td>
+</tr>
+<tr>
+  <td>
+    <span class="logLine corrupt">LOG 00:00:09 - [ALERT] System meltdown threshold nearing 3%.</span>
+  </td>
+</tr>
+<tr>
+  <td>
+    <span class="logLine corrupt">LOG 00:00:10 - [SYSTEM] Archive node #BLOOD reactivated unexpectedly.</span>
+  </td>
+</tr>
+
+<!-- ... hundreds more logs here ... -->
+
+          </tbody>
+        </table>
+        <!-- End logs table -->
+
+        <hr class="redHr">
+
+        <p>
+          <blink>END OF LOGS</blink>
+        </p>
+
+        <hr class="redHr">
+
+        <!-- Guestbook Section -->
+        <a name="guestbookSection"></a>
+        <div class="subheading">Sign My Guestbook</div>
+        <p>
+          <a href="guestbook_sign.html" target="_blank"><blink>Click here to Sign</blink></a><br>
+          <a href="guestbook_view.html" target="_blank">View Guestbook</a>
+        </p>
+
+      </td>
+
+      <!-- Right Nav -->
+      <td id="rightNav">
+        <div style="text-align:center;">
+          <h3 style="color:#FF0000;">MISC LINKS</h3>
+          <p>
+            <a href="index2.html">Alternate Index</a><br>
+            <a href="files.html">Old Files</a><br>
+            <a href="pics.html">Creepy Pics</a><br>
+            <a href="random.html">Random Stuff</a>
+          </p>
+        </div>
+        <hr class="redHr">
+
+        <div style="text-align:center;">
+          <blink>Affiliates</blink>
+          <p>
+            <a href="https://www.angelfire.com" target="_blank">Angelfire</a><br>
+            <a href="https://www.geocities.ws" target="_blank">Geocities</a><br>
+            <a href="https://www.ladyofthecake.com" target="_blank">Lady of the Cake</a>
+          </p>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Another marquee near bottom -->
+  <marquee class="marqueeText" behavior="alternate" scrollamount="4">
+    <blink>STILL UNDER CONSTRUCTION - STAY TUNED</blink>
+  </marquee>
+
+  <!-- Footer area -->
+  <div id="footerArea">
+    <p style="margin: 5px; font-size:14px;">
+      <strong>HOSTED BY ANGELFIRE</strong> | <strong>© 2001-2023 Blood Archive</strong>
+    </p>
+  </div>
+</div>
+
+<!-- The random pop-up that appears from time to time -->
+<div id="horrorPopup">
+  <p>DATA CORRUPTION DETECTED</p>
+</div>
+
+<script>
+/* 
+========================================================
+                 JAVASCRIPT SECTION
+========================================================
+   - Automatic pop-up for random error messages
+   - Corrupt text effect for .corrupt elements
+*/
+
+/* 1) Random Horror Popup: appears 30% chance every 15s */
+function showHorrorPopup() {
+  const popup = document.getElementById('horrorPopup');
+  popup.style.display = 'block';
+  setTimeout(() => {
+    popup.style.display = 'none';
+  }, 4000);
+}
+setInterval(() => {
+  if (Math.random() < 0.3) {
+    showHorrorPopup();
+  }
+}, 15000);
+
+/* 2) Corrupt text effect on elements with class .corrupt 
+      Replaces ~5% of characters with random ASCII
+*/
+function corruptText() {
+  const corruptEls = document.querySelectorAll('.corrupt');
+  corruptEls.forEach(el => {
+    const originalText = el.textContent;
+    let corrupted = '';
+    for (let i = 0; i < originalText.length; i++) {
+      const char = originalText[i];
+      if (Math.random() < 0.05 && char !== ' ' && char !== '\n') {
+        // replace with random ASCII from 33 (!) to 126 (~)
+        const randCode = 33 + Math.floor(Math.random() * 94);
+        corrupted += String.fromCharCode(randCode);
+      } else {
+        corrupted += char;
+      }
+    }
+    el.textContent = corrupted;
+
+    // revert after 1 second
+    setTimeout(() => {
+      el.textContent = originalText;
+    }, 1000);
+  });
+}
+// run every 8 seconds
+setInterval(corruptText, 8000);
+
+</script>
+
+</body>
+</html>
+            
