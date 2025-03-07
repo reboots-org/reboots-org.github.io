@@ -969,7 +969,7 @@
             hours = hours % 12;
             hours = hours ? hours : 12; // the hour '0' should be '12'
             
-            document.getElementById('clock').textContent = ${hours}:${minutes} ${ampm};
+            document.getElementById('clock').textContent = `${hours}:${minutes} ${ampm}`;
         }
         
         // Update the clock every minute
@@ -1031,11 +1031,11 @@
                 
                 // Add window app to taskbar if it doesn't exist
                 const windowType = windowId.replace('Window', '');
-                const existingWindowApp = document.querySelector(.taskbar-app.${windowType}-app);
+                const existingWindowApp = document.querySelector(`.taskbar-app.${windowType}-app`);
                 
                 if (!existingWindowApp) {
                     const windowApp = document.createElement('div');
-                    windowApp.className = taskbar-app ${windowType}-app;
+                    windowApp.className = `taskbar-app ${windowType}-app`;
                     
                     let appName = 'Application';
                     let emoji = '📄';
@@ -1051,7 +1051,7 @@
                         emoji = '📝';
                     }
                     
-                    windowApp.innerHTML = <div class="app-emoji">${emoji}</div><span>${appName}</span>;
+                    windowApp.innerHTML = `<div class="app-emoji">${emoji}</div><span>${appName}</span>`;
                     document.querySelector('.taskbar-apps').appendChild(windowApp);
                     
                     // Click on taskbar app to toggle window
@@ -1073,7 +1073,7 @@
                 
                 // Remove window app from taskbar
                 const windowType = windowId.replace('Window', '');
-                const windowApp = document.querySelector(.taskbar-app.${windowType}-app);
+                const windowApp = document.querySelector(`.taskbar-app.${windowType}-app`);
                 if (windowApp) {
                     windowApp.remove();
                 }
@@ -1165,7 +1165,7 @@
                 const lineElement = document.createElement('div');
                 lineElement.className = 'lyrics-line';
                 lineElement.dataset.index = index;
-                lineElement.innerHTML = <span class="lyrics-timestamp">${formatTime(line.time)}</span> ${line.text};
+                lineElement.innerHTML = `<span class="lyrics-timestamp">${formatTime(line.time)}</span> ${line.text}`;
                 lyricsContent.appendChild(lineElement);
             });
         }
@@ -1176,7 +1176,7 @@
             const totalSeconds = seconds + 66;
             const min = Math.floor(totalSeconds / 60);
             const sec = Math.floor(totalSeconds % 60).toString().padStart(2, '0');
-            return ${min}:${sec};
+            return `${min}:${sec}`;
         }
         
         // Update the active lyrics based on current time
@@ -1216,7 +1216,7 @@
                 
                 // Add active class to current line
                 if (foundIndex >= 0) {
-                    const activeLine = document.querySelector(.lyrics-line[data-index="${foundIndex}"]);
+                    const activeLine = document.querySelector(`.lyrics-line[data-index="${foundIndex}"]`);
                     if (activeLine) {
                         activeLine.classList.add('active');
                         
@@ -1297,7 +1297,7 @@
         let currentRotateX = 20, currentRotateY = 0;
 
         // Initialize the 3D perspective
-        turntable.style.transform = rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg);
+        turntable.style.transform = `rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
         
         playerContainer.addEventListener('mousedown', function(e) {
             if (e.target.closest('.controls') || e.target.closest('.volume-control')) {
@@ -1325,7 +1325,7 @@
             currentRotateX = Math.max(-30, Math.min(40, currentRotateX));
             currentRotateY = Math.max(-30, Math.min(30, currentRotateY));
             
-            turntable.style.transform = rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg);
+            turntable.style.transform = `rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
         });
 
         document.addEventListener('mouseup', function() {
@@ -1346,15 +1346,15 @@
 
         // Function to open notepad with specific file
         function openNotepad(fileName, fileContent) {
-            window.open(notepad.html?file=${encodeURIComponent(fileName)}&content=${encodeURIComponent(fileContent)}, '_blank', 'width=600,height=400');
+            window.open(`notepad.html?file=${encodeURIComponent(fileName)}&content=${encodeURIComponent(fileContent)}`, '_blank', 'width=600,height=400');
             
             // Add notepad app to taskbar
-            const existingNotepadApps = document.querySelectorAll(.taskbar-app.notepad-app[data-filename="${fileName}"]);
+            const existingNotepadApps = document.querySelectorAll(`.taskbar-app.notepad-app[data-filename="${fileName}"]`);
             if (existingNotepadApps.length === 0) {
                 const notepadApp = document.createElement('div');
                 notepadApp.className = 'taskbar-app notepad-app';
                 notepadApp.setAttribute('data-filename', fileName);
-                notepadApp.innerHTML = <div class="app-emoji">📝</div><span>${fileName}</span>;
+                notepadApp.innerHTML = `<div class="app-emoji">📝</div><span>${fileName}</span>`;
                 document.querySelector('.taskbar-apps').appendChild(notepadApp);
             }
         }
@@ -1395,7 +1395,7 @@
                         // Open notepad with the file content
                         openNotepad(fileTitle, fileContent);
                     } else {
-                        alert(Opening ${fileName});
+                        alert(`Opening ${fileName}`);
                     }
                 }
             });
