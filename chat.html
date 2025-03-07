@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forgotten Archive Chat Room</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Chat room page styling */
+        body {
+            background-color: #000;
+            color: #CC0000;
+            font-family: "Courier New", monospace;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #FF0000;
+            text-shadow: 2px 2px #000;
+            font-size: 2.5em;
+        }
+        #chatContainer {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 2px dashed #990000;
+            padding: 20px;
+            background-color: rgba(0,0,0,0.8);
+        }
+        #chatLog {
+            height: 400px;
+            overflow-y: scroll;
+            border: 1px solid #660000;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .chatMessage {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        #chatForm {
+            display: flex;
+        }
+        #chatInput {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #111;
+            color: #CC0000;
+            border: 1px solid #660000;
+        }
+        #sendButton {
+            padding: 10px 20px;
+            background-color: #CC0000;
+            color: #000;
+            border: 1px solid #990000;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #sendButton:hover {
+            background-color: #FF0000;
+        }
+        a.backLink {
+            color: #FF0000;
+            text-decoration: underline;
+            font-size: 14px;
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chat Room</h1>
+    <div id="chatContainer">
+        <div id="chatLog"></div>
+        <form id="chatForm">
+            <input type="text" id="chatInput" placeholder="Type your message here..." autocomplete="off">
+            <button type="submit" id="sendButton">Send</button>
+        </form>
+    </div>
+    <a class="backLink" href="the_forgotten_archive.html">← Back to Archive</a>
+    <script>
+        const chatLog = document.getElementById('chatLog');
+        const chatForm = document.getElementById('chatForm');
+        const chatInput = document.getElementById('chatInput');
+
+        // Load existing chat messages from localStorage
+        let chatMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+
+        function displayMessages() {
+            chatLog.innerHTML = '';
+            chatMessages.forEach(msg => {
+                const div = document.createElement('div');
+                div.className = 'chatMessage';
+                div.textContent = msg;
+                chatLog.appendChild(div);
+            });
+            chatLog.scrollTop = chatLog.scrollHeight;
+        }
+        displayMessages();
+
+        chatForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const message = chatInput.value.trim();
+            if (message !== "") {
+                chatMessages.push(message);
+                localStorage.setItem('chatMessages', JSON.stringify(chatMessages));
+                displayMessages();
+                chatInput.value = "";
+            }
+        });
+    </script>
+</body>
+</html>
