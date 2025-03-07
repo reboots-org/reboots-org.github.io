@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guestbook - Sign</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Guestbook sign page styling */
+        body {
+            background-color: #000;
+            color: #CC0000;
+            font-family: "Courier New", monospace;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #FF0000;
+            text-shadow: 2px 2px #000;
+            font-size: 2.5em;
+        }
+        #guestbookForm {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 2px dashed #990000;
+            padding: 20px;
+            background-color: rgba(0,0,0,0.8);
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #111;
+            color: #CC0000;
+            border: 1px solid #660000;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #CC0000;
+            color: #000;
+            border: 1px solid #990000;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #FF0000;
+        }
+        a.backLink {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #FF0000;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sign the Guestbook</h1>
+    <div id="guestbookForm">
+        <form id="signForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+            <label for="message">Message:</label>
+            <textarea id="message" rows="5" required></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <a class="backLink" href="guestbook_view.html">View Guestbook Entries</a>
+    <a class="backLink" href="the_forgotten_archive.html">← Back to Archive</a>
+    <script>
+        const form = document.getElementById('signForm');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const message = document.getElementById('message').value.trim();
+            if(name === "" || message === "") return;
+            const entry = {
+                name: name,
+                message: message,
+                time: new Date().toLocaleString()
+            };
+            let guestbookEntries = JSON.parse(localStorage.getItem('guestbookEntries')) || [];
+            guestbookEntries.push(entry);
+            localStorage.setItem('guestbookEntries', JSON.stringify(guestbookEntries));
+            alert("Your entry has been added to the guestbook.");
+            form.reset();
+        });
+    </script>
+</body>
+</html>
