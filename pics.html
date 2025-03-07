@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forgotten Archive - Creepy Pictures</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Picture gallery page styling */
+        body {
+            background-color: #000;
+            color: #CC0000;
+            font-family: "Courier New", monospace;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #FF0000;
+            font-size: 2.5em;
+            text-shadow: 2px 2px #000;
+        }
+        #gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-gap: 10px;
+            margin-top: 20px;
+        }
+        .gallery-item {
+            border: 2px solid #990000;
+            padding: 5px;
+            background-color: rgba(0,0,0,0.8);
+        }
+        .gallery-item img {
+            width: 100%;
+            display: block;
+        }
+        a.backLink {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #FF0000;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Creepy Pictures</h1>
+    <div id="gallery">
+        <div class="gallery-item">
+            <img src="https://i.ytimg.com/vi/-A3O4079hj8/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBajz8_ghTsUemQK3EKJq8KkdBhLQ" alt="Creepy Picture 1">
+        </div>
+        <div class="gallery-item">
+            <img src="https://m.media-amazon.com/images/M/MV5BNjQ3N2NhNTUtMmFhMy00YTZiLWFhMmItMzUzOTk5ZTFlMTA2XkEyXkFqcGc@._V1_.jpg" alt="Creepy Picture 2">
+        </div>
+        <div class="gallery-item">
+            <img src="https://i.pinimg.com/474x/fd/34/4b/fd344b944c135f26860296961405722a.jpg" alt="Creepy Picture 3">
+        </div>
+        <div class="gallery-item">
+            <img src="https://i.pinimg.com/originals/15/5c/72/155c72ce60eb69a9a27ce1445b93f47b.jpg" alt="Creepy Picture 4">
+        </div>
+    </div>
+    <a class="backLink" href="index2.html">← Back to Alternate Index</a>
+</body>
+</html>
