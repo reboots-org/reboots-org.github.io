@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guestbook - View Entries</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Guestbook view page styling */
+        body {
+            background-color: #000;
+            color: #CC0000;
+            font-family: "Courier New", monospace;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #FF0000;
+            text-shadow: 2px 2px #000;
+            font-size: 2.5em;
+        }
+        #entriesContainer {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 2px dashed #990000;
+            padding: 20px;
+            background-color: rgba(0,0,0,0.8);
+        }
+        .entry {
+            border-bottom: 1px solid #660000;
+            padding: 10px 0;
+        }
+        .entry:last-child {
+            border-bottom: none;
+        }
+        .entryName {
+            font-weight: bold;
+            color: #FF0000;
+        }
+        .entryTime {
+            font-size: 12px;
+            color: #990000;
+        }
+        a.backLink {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #FF0000;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Guestbook Entries</h1>
+    <div id="entriesContainer"></div>
+    <a class="backLink" href="guestbook_sign.html">← Sign the Guestbook</a>
+    <a class="backLink" href="the_forgotten_archive.html">← Back to Archive</a>
+    <script>
+        function loadEntries() {
+            const container = document.getElementById('entriesContainer');
+            container.innerHTML = "";
+            const entries = JSON.parse(localStorage.getItem('guestbookEntries')) || [];
+            if(entries.length === 0) {
+                container.innerHTML = "<p>No entries yet.</p>";
+                return;
+            }
+            entries.forEach(entry => {
+                const div = document.createElement('div');
+                div.className = "entry";
+                div.innerHTML = `<span class="entryName">${entry.name}</span> 
+                                 <span class="entryTime">[${entry.time}]</span><br>
+                                 <span class="entryMessage">${entry.message}</span>`;
+                container.appendChild(div);
+            });
+        }
+        loadEntries();
+    </script>
+</body>
+</html>
